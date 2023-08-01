@@ -1,0 +1,132 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Tableau de bord</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item ">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col hide administrateur" id="user_box">
+                <div class="small-box bg-1" style="position: relative">
+                    <div class="inner">
+                        <h3 id="nombre_user">713</h3>
+                        <p>
+                            <a href="list.html" style="color: black">UTILISATEURS</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <span class="small-box-footer cursor" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"></span>
+                </div>
+            </div>
+            <div class="col hide administrateur" id="admin_box">
+                <div class="small-box bg-3" style="position: relative">
+                    <div class="inner">
+                        <h3 id="nombre_admin">36</h3>
+                        <p>
+                            <a href="list.html" style="color: white">ADMINISTRATEUR</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <span class="small-box-footer cursor" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"></span>
+                </div>
+            </div>
+            <div class="col hide administrateur agentsecteur" id="agent_box">
+                <div class="small-box bg-4" style="position: relative">
+                    <div class="inner">
+                        <h3 id="nombre_agent">36</h3>
+                        <p>
+                            <a href="list.html" style="color: white">AGENT</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <span class="small-box-footer cursor" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"></span>
+                </div>
+            </div>
+            <div class="col hide administrateur agentsecteur" id="client_box">
+                <div class="small-box bg-5" style="position: relative">
+                    <div class="inner">
+                        <h3 id="nombre_client">372</h3>
+                        <p>
+                            <a href="list.html" style="color: white">CLIENT</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <span class="small-box-footer cursor" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"></span>
+                </div>
+            </div>
+
+            <div class="col hide administrateur agentsecteur" id="rdv_box">
+                <div class="small-box bg-2">
+                    <div class="inner">
+                        <h3 id="rdv_salarie">4</h3>
+                        <p>
+                            <a href="rendez-vous-attente.html" style="color: white">SALARIE</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-stats-bars"></i></div>
+                    <span class="small-box-footer cursor"></span>
+                </div>
+            </div>
+            <div class="col hide administrateur agentsecteur" id="rdv_valide_box">
+                <div class="small-box bg-2">
+                    <div class="inner">
+                        <h3 id="nombre_rdv">4</h3>
+                        <p>
+                            <a href="rendez-vous-en-charge.html" style="color: white">RENDEZ-VOUS</a>
+                        </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-stats-bars"></i></div>
+                    <span class="small-box-footer cursor"></span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" style="display: inline;" id="waiters"></div> -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card" style="padding: 15;">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script  src="amsV2/../assets/dist/js/dashboard.js" ></script>
+<script type="text/javascript">
+    var usrTyp = `${$.cookie("group").split(" ").join("").toLowerCase()}`;
+    
+    var stats = JSON.parse($.cookie("stats"));
+    
+    if (usrTyp === "administrateur" || usrTyp === "agentsecteur") {
+        $("#nombre_agent").html(stats.agent);
+        $("#nombre_client").html(stats.client);
+        $("#nombre_salarie").html(stats.salarie);
+        $("#nombre_rdv").html(stats.rdv);
+
+    } else if (usrTyp === "administrateur") {
+        $("#nombre_user").html(stats.utilisateurs);  
+        $("#nombre_admin").html(stats.admin);
+    }
+
+    function protect(usrTyp) {
+        $(`.${usrTyp}`).css("display", "inline");
+    }
+    protect(usrTyp);
+
+    configCal();
+</script>

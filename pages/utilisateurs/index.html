@@ -1,0 +1,84 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Liste d'utilisateurs</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">Utilisateurs</li>
+                    <li class="breadcrumb-item ">Liste</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" style="display: inline;" id="waiters"></div>
+        <div class="row" id="table-content">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <!-- <div class="row">
+                            <div class="col-2 form-group" id="role_list">
+
+                            </div>
+                            <div class="col-2 form-group" id="role_group" style="display: inline;">
+                                <label for="ref_edl">Etat</label>
+                                <select class="form-control" name="etat" id="etat">
+                                    <option value="-1">SELECTIONNER</option>
+                                    <option value="1">Actif</option>
+                                    <option value="0">Inactif</option>
+                                </select>
+
+                            </div>
+                            <div class="col-2 form-group" id="role_group">
+                                <label for="ref_edl">Recherche </label>
+                                <input type="text" name="table_search" class="form-control " placeholder="Recherche"
+                                    id="filtre" />
+                            </div>
+                            <div class=" col-2 form-group" style="align-items: end;display: flex;">
+                                <a href="#" class="btn btn-primary" id="find"> Rechercher</a>
+                            </div>
+
+                        </div> -->
+
+
+                        <h3 class="card-title"></h3>
+                        <div class="card-tools">
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><em>Nom</em></th>
+                                    <th>Email</th>
+                                    <th class="text-center">Role</th>
+                                    <th>Téléphone</th>
+                                    <th>Statut</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="contentTableUser">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="amsV2/../assets/dist/js/user_list.js" async></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllUsers();
+    });
+</script>

@@ -1,0 +1,192 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Modifier un Utilisateur</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item ">Utilisateur</li>
+                    <li class="breadcrumb-item ">
+                        Modifier un Utilisateur
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" id="waiters"></div>
+        <div class="row" id="form-content">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Modifier un Utilisateur</h3>
+                        <center>
+                            <p id="error_form" style="color:red;display: none;"> <strong>Attention!!! Tous les champs
+                                    sont obligatoires</strong></p>
+                        </center>
+                    </div>
+                    <form method="POST" id="form">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Prénom</label><input type="text"
+                                            class="form-control undefined" placeholder="Prénom de l'utilisateur"
+                                            name="prenom" id="prenom" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nom</label><input type="text"
+                                            class="form-control undefined" placeholder="Nom de l'utilisateur" name="nom"
+                                            id="nom" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Adresse</label><input type="text"
+                                            class="form-control undefined" placeholder="Adresse" name="address"
+                                            id="adresse" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label><input type="email"
+                                            class="form-control undefined" placeholder="Entre votre email" name="email"
+                                            id="email" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Téléphone</label><input type="text"
+                                            class="form-control undefined" placeholder="Entre le numéro de telephone"
+                                            name="telephone" id="telephone" />
+                                        <i id="erreurPhone" style="display: None;"><small
+                                                style="color: rgb(248, 31, 31);">Le numéro de téléphone doit commencer
+                                                par 0 et avoir 10 chiffres</small></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="as" style="display:none">
+
+                            </div>
+                            <small id="as_error" style="display: none;"><i style="color:rgb(243, 70, 70);">L'agent de
+                                    secteur est obligatoire pour ce type d'utilisateur</i></small>
+
+                            <div class="form-group" id="users_add">
+                                <label for="exampleInputEmail1">Role</label>
+                                <select class="form-control undefined" name="role" id="type_user">
+                                    <option value="3" class="admin">Administrateur</option>
+                                    <option value="1" class="agent_secteur">Agent Secteur</option>
+                                    <option value="2" class="agent_constat">Agent Constat</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="compte_client">
+                                <label for="exampleInputEmail1">Compte Client</label>
+                                <select class="form-control" name="compte_client" id="compte_client_list">
+
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button id="go" style="display: inline;" class="btn btn-primary"> Enregistrer
+                            </button>&nbsp;&nbsp;
+                            <a id="leave" style="display: inline;" class="btn btn-danger"
+                                onclick="window.location.reload('./index.html')">
+                                Annuler
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" id="error-loading-data"
+            style="display: none; color: red; text-align: center;">
+            <h2 class="">Une erreur c'est produite lors du chargement.</h2>
+            <br />
+            <h2 class="h4">Veuillez contacter le Service de maintenance</h2>
+        </div>
+    </div>
+</section>
+
+<script src="amsV2/../assets/dist/js/user.js" async></script>
+<script type="text/javascript">
+    $(document).ready(async function () {
+        $("#waiters").css("display", "block");
+        if (role === "agent secteur") {
+            // $(".admin").css("display", "none");
+            $(".admin").attr("disabled", true);
+            $(".agent_secteur").attr("disabled", true);
+        }
+        await getSingleUser();
+
+        $.ajax({
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            url: "http://195.15.218.172/edlgateway/api/v1/participant/client/all?start=1&limit=1&count=100",
+            success: function (response) {
+                let results = response.results;
+
+                results.forEach(elt => {
+                    $("#compte_client_list").append(
+                        `<option value="${elt.id}">${elt.nom}</option>`
+                    )
+                });
+            },
+            error: function () {
+                
+            }
+        });
+
+        var options = {
+            rules: {
+                'prenom': { required: [true, message["required"]] },
+                'nom': { required: [true, message["required"]] },
+                'address': { required: [true, message["required"]] },
+                'telephone': { required: [true, message["required"]] },
+                'email': { required: [true, message["required"]], email: [true, message["email"]] },
+                'role': { required: [true, message["required"]] }
+            }
+        };
+
+        var formObject = new ej.inputs.FormValidator('#form', options);
+
+        formObject.validate();
+
+        $("#type_user").change(function (e) {
+            if (e.currentTarget.value === "1" || e.currentTarget.value === "2") {
+                $("#compte_client").css("display", "block"); $("#compte_client_list").prop("required", true);
+                $("#compte_client_list").change();
+                formObject.addRules('compte_client', { required: [true, message["required"]] });
+            }
+            else {
+                formObject.removeRules('compte_client', ["required"]);
+                $("#compte_client").css("display", "none");
+            }
+        });
+
+        $("input, select").on(("change keyup"), () => {
+            formObject.validate();
+            $("input.e-error, select.e-error, textarea.e-error").length > 0 ? $("#go").prop("disabled", true) : $("#go").prop("disabled", false);;
+        });
+
+        //  formObject.validate() ? $("#go").prop("disabled", false) : $("#go").prop("disabled", true);
+
+        $("#go").click(function (e) {
+            e.preventDefault();
+            if (formObject.validate()) editUser();
+        });
+    });
+</script>

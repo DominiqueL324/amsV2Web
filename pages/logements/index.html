@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" style="height: auto">
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="stylesheet" href="./../../assets/dist/css/parsley.css" />
+    <link rel="shortcut icon" href="./../../assets/brand/logo.png" type="image/x-icon">
+    <!--<scriptsal
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>-->
+    <script src="./../../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="./../../assets/dist/js/jquery-cookie-master/src/jquery.cookie.js"></script>
+    <script src="./../../assets/dist/js/login.js"></script>
+    <script src="./../../assets/dist/js/adminlte.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/validator.tool/dist/validator.min.js"></script>
+    <title>Amexpert - AMS V2A</title>
+    <!-- <script defer="defer" src="/static/js/main.069f0b50.js"></script> -->
+    <link href="./../../assets/dist/css/adminlte.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./../../assets/plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style data-styled="" data-styled-version="5.3.5"></style>
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/282.e4ab9df4.chunk.css" /> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link href="./../../assets/dist/css/spinner.css" rel="stylesheet" />
+    <script src="./../../assets/dist/js/jquery-cookie-master/jquery.toaster.js" type="text/javascript"></script>
+</head>
+
+<body classname="hold-transition sidebar-mini layout-navbar-fixed" style="height: auto">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="wrapper">
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light relative" id="main-navbar">
+                <!-- header -->
+                <img src="./../../assets/brand/logo.png" alt="Logo"
+                    style="position: absolute;left: 50%;top: 20px;transform: translate(-50%, 0%);" />
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" role="button" href="/"><i
+                                class="fas fa-bars"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.history.go(-1);" title="Page précedente"
+                            role="button" style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-underline" data-widget="control-sidebar" data-slide="true"
+                            role="button" href id="logout" style="color: red">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" id="aside-navbar">
+                <!-- aside bar -->
+                <a class="brand-link" href="../../index.html"
+                    style="display: block; text-align: center; margin: auto"><span class="brand-text">AMS V2</span></a>
+                <div
+                    class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+                    <div class="os-resize-observer-host observed">
+                        <div class="os-resize-observer" style="left: 0px; right: auto"></div>
+                    </div>
+                    <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left">
+                        <div class="os-resize-observer"></div>
+                    </div>
+                    <div class="os-content-glue"></div>
+                    <div class="os-padding">
+                        <div class="os-viewport os-viewport-native-scrollbars-invisible">
+                            <div class="os-content" style="height: 100%; width: 100%">
+                                <div class="user-panel mt-1 pb-1 mb-3 d-flex justify-content-center align-items-center">
+                                    <div class="info">
+                                        <a class="d-block text-decoration-underline" href="../profil/index.html"
+                                            id="name_user" style="display: inline;"></a>
+                                    </div>
+                                </div>
+                                <nav class="mt-2" style="overflow-y: scroll;max-height: 590px;">
+                                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                        data-accordion="false">
+                                        <li class="nav-item agentsecteur administrateur agentconstat">
+                                            <a class="nav-link" href="../../index.html">
+                                                <i class="bi bi-speedometer2"></i>
+                                                <p>Tableau de Bord</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur " id="hide">
+                                            <a class="nav-link sub-menu" href="#">
+                                                <i class="bi bi-people"></i>
+                                                <p>Participants</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item" id="add_user_link">
+                                                    <a class="nav-link" href="../participants/ajouter.html"><i
+                                                            class="bi bi-person-plus"></i>
+                                                        <p>Ajouter un participant</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item" href="../participants/index.html"
+                                                        list.html><i class="bi bi-list-columns-reverse"></i>
+                                                        <p>Liste des participants</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item " id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-people"></i>
+                                                <p>Compte Client</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item" id="add_user_link">
+                                                    <a class="nav-link" href="../compteClient/ajouter.html"><i
+                                                            class="bi bi-person-plus"></i></i>
+                                                        <p>Ajouter un compte client</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../compteClient/index.html"><i
+                                                            class="bi bi-list-columns-reverse"></i>
+                                                        <p>Liste des compte client</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur" id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Logement</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item" href="../logements/ajouter.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Ajouter un Logement</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../logements/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Liste de Logements</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="nav-item agentsecteur agentconstat" id="hide">
+                                            <a class="nav-link" href="../constats/index.html"><i
+                                                    class="bi bi-list-columns-reverse"></i>
+                                                <p>Constats</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur administrateur" id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Bibliothèque Logement</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../bibliothequeLogement/extension/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Extension</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../bibliothequeLogement/voie/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Voies</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../bibliothequeLogement/cles/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Clés</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeLogement/compteur/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Compteurs</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeLogement/rubrique/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Rubriques</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../bibliothequeLogement/piece/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Pièces</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeLogement/logements/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Logements</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item administrateur" id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Bibliothèque Commentaire</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../bibliothequeCommentaire/cles/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Clés</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeCommentaire/compteur/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Compteurs</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeCommentaire/rubrique/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Rubriques</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../bibliothequeCommentaire/commentaire/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Autres Commentaires</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+                        <div class="os-scrollbar-track">
+                            <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px)"></div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+                        <div class="os-scrollbar-track">
+                            <div class="os-scrollbar-handle" style="height: 31.7881%; transform: translate(0px, 0px)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar-corner"></div>
+                </div>
+                <script>
+                    $(document).ready(() => {
+
+                        let completeName = $.cookie('first_name').charAt(0).toUpperCase() + $.cookie('first_name').slice(1).toLowerCase() + " " + $.cookie('name');
+
+                        $("#name_user").html(`${completeName}`).css("text-decoration", "none");
+
+                        let usrType = `${$.cookie("group").split(" ").join("").toLowerCase()}`;
+                       
+                        function protect(usrType) {
+                            $(`.${usrType}`).css("display", "inline");
+                        }
+                        protect(usrType);
+                    });
+                </script>
+
+
+            </aside>
+            <div class="content-wrapper" style="min-height: 748px" id="main-content">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0">Liste de logements</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item">Logements</li>
+                                    <li class="breadcrumb-item ">Liste</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row" style="display: inline;" id="waiters"></div>
+                        <div class="row" id="table-content">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+
+                                        <!-- <div class="row">
+                            <div class="col-2 form-group" id="role_list">
+
+                            </div>
+
+                            <div class="col-6 form-group" id="role_group">
+                                <label for="ref_edl">Recherche </label>
+                                <input type="text" name="table_search" class="form-control " placeholder="Recherche"
+                                    id="filtre" />
+                            </div>
+                            <div class=" col-2 form-group" style="align-items: end;display: flex;">
+                                <a href="#" class="btn btn-primary" id="find"> Rechercher</a>
+                            </div>
+
+                        </div> -->
+
+
+                                        <h3 class="card-title"></h3>
+                                        <div class="card-tools">
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Compte Client</label>
+                                                    <select class="form-control" name="compte_client_index"
+                                                        id="compte_client_index"></select>
+                                                    <!--<input type="text" class="form-control" name="compte_client"
+                                        id="compte_client" data-parsley-required disabled />-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Adresse</th>
+                                                    <th>Type de logement</th>
+                                                    <th>Type de constat</th>
+                                                    <th>Client</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="contentTableUser">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer class="main-footer"
+                style="max-height: 57px; height: 57px; display: flex; justify-content: space-between;">
+                <p><b>Version</b> 2.0.0 <strong>
+                        Tous droits réservés. © <span id="copyright_year"></span>
+                    </strong></p>
+                <a href="https://amexpert.pro/" rel="noopener noreferrer" target="_blank"
+                    style="color: black"><b>AMEXPERT</b></a>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../assets/dist/js/logement.js" async></script>
+    <script src="../../assets/dist/js/pageLoader.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "http://195.15.218.172/manager_app/user/tri/?agent=" + localStorage.getItem("id_user_logged") + "&role=Client%20pro",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                },
+                success: (response) => {
+                    $("#compte_client_index").append(`
+                    <option value="-1">Tous Mes clients</option>
+                `)
+                    response["results"].forEach((elt) => {
+                        $("#compte_client_index").append(`
+                    <option value="${elt["client"]["id"]}">${elt["first_name"] + " " + elt["last_name"] + "   " + elt["client"]["societe"]}</option>
+                `)
+                    });
+                },
+                error: () => { }
+            });
+
+            $("#compte_client_index").val(localStorage.getItem("compte_client_nom")).trigger("change");
+            getAllLogement();
+            
+        });
+    </script>
+
+</body>
+
+</html>

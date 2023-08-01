@@ -1,0 +1,265 @@
+<a class="brand-link" href="#/dashboard/index" style="display: block; text-align: center; margin: auto"><span
+        class="brand-text">AMS V2</span></a>
+<div
+    class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+    <div class="os-resize-observer-host observed">
+        <div class="os-resize-observer" style="left: 0px; right: auto"></div>
+    </div>
+    <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left">
+        <div class="os-resize-observer"></div>
+    </div>
+    <div class="os-content-glue"></div>
+    <div class="os-padding">
+        <div class="os-viewport os-viewport-native-scrollbars-invisible">
+            <div class="os-content" style="height: 100%; width: 100%">
+                <div class="user-panel mt-1 pb-1 mb-3 d-flex justify-content-center align-items-center">
+                    <div class="info">
+                        <a class="d-block text-decoration-underline" href="#/profil/index" id="name_user"
+                            style="display: inline;"></a>
+                    </div>
+                </div>
+                <nav class="mt-2" style="overflow-y: scroll;max-height: 590px;">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item agentsecteur administrateur agentconstat">
+                            <a class="nav-link" href="#/dashboard/index">
+                                <i class="bi bi-speedometer2"></i>
+                                <p>Tableau de Bord</p>
+                            </a>
+                        </li>
+                        <li class="sub-menu nav-item agentsecteur administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#">
+                                <i class="bi bi-people"></i>
+                                <p>Utilisateurs</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" id="add_user_link">
+                                    <a class="nav-link" href="#/utilisateurs/ajouter"><i class="bi bi-person-plus"></i>
+                                        <p>Ajouter un utilisateur</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/utilisateurs/index"><i
+                                            class="bi bi-list-columns-reverse"></i>
+                                        <p>Liste des utilisateurs</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu nav-item agentsecteur administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#">
+                                <i class="bi bi-people"></i>
+                                <p>Participants</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" id="add_user_link">
+                                    <a class="nav-link" href="#/participants/ajouter"><i class="bi bi-person-plus"></i>
+                                        <p>Ajouter un participant</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/participants/index" list.html><i
+                                            class="bi bi-list-columns-reverse"></i>
+                                        <p>Liste des participants</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu nav-item administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#"><i class="bi bi-people"></i>
+                                <p>Compte Client</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" id="add_user_link">
+                                    <a class="nav-link" href="#/compteClient/ajouter"><i
+                                            class="bi bi-person-plus"></i></i>
+                                        <p>Ajouter un compte client</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/compteClient/index"><i
+                                            class="bi bi-list-columns-reverse"></i>
+                                        <p>Liste des compte client</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu nav-item agentsecteur administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                <p>Logement</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/logements/ajouter">
+                                        <i class="bi bi-house-add"></i>
+                                        <p>Ajouter un Logement</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/logements/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Liste de Logements</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu nav-item administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                <p>EDL</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/edl/ajouter">
+                                        <i class="bi bi-house-add"></i>
+                                        <p>Ajouter un EDL</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/edl/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Liste de EDL</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item agentsecteur agentconstat" id="hide">
+                            <a class="nav-link" href="#/constats/index"><i class="bi bi-list-columns-reverse"></i>
+                                <p>Constats</p>
+                            </a>
+                        </li>
+
+
+                        <!-- <li class="nav-item administrateur" id="hide">
+                            <a class="nav-link" href="#/importBiliotheque/index"><i class="bi bi-cloud-arrow-up"></i>
+                                <p>Import des bibliothèque</p>
+                            </a>
+                        </li> -->
+
+                        <li class="sub-menu nav-item administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                <p>Bibliothèque Logement</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/bibliothequeLogement/extension/index">
+                                        <i class="bi bi-house-add"></i>
+                                        <p>Extension</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/bibliothequeLogement/voie/index">
+                                        <i class="bi bi-house-add"></i>
+                                        <p>Voies</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeLogement/cles/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Clés</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeLogement/compteur/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Compteurs</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeLogement/rubrique/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Rubriques</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeLogement/piece/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Pièces</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeLogement/logements/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Logements</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu nav-item administrateur" id="hide">
+                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                <p>Bibliothèque Commentaire</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link nav-item" href="#/bibliothequeCommentaire/cles/index">
+                                        <i class="bi bi-house-add"></i>
+                                        <p>Clés</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeCommentaire/compteur/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Compteurs</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeCommentaire/rubrique/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Rubriques</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/bibliothequeCommentaire/commentaire/index">
+                                        <i class="bi bi-houses"></i>
+                                        <p>Autres Commentaires</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+        <div class="os-scrollbar-track">
+            <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px)"></div>
+        </div>
+    </div>
+    <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+        <div class="os-scrollbar-track">
+            <div class="os-scrollbar-handle" style="height: 31.7881%; transform: translate(0px, 0px)">
+            </div>
+        </div>
+    </div>
+    <div class="os-scrollbar-corner"></div>
+</div>
+
+<script>
+    $(document).ready(() => {
+
+        let completeName = $.cookie('first_name').charAt(0).toUpperCase() + $.cookie('first_name').slice(1).toLowerCase() + " " + $.cookie('name');
+
+        $("#name_user").html(`${completeName}`).css("text-decoration", "none");
+
+        let usrType = `${$.cookie("group").split(" ").join("").toLowerCase()}`;
+
+        function protect(usrType) {
+           
+            $(`.${usrType}`).css("display", "inline");
+        }
+        protect(usrType);
+    });
+</script>

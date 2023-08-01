@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en" style="height: auto">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="stylesheet" href="./../../../assets/dist/css/parsley.css" />
+    <link rel="shortcut icon" href="./../../../assets/brand/logo.png" type="image/x-icon">
+    <!--<scriptsal
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>-->
+    <script src="./../../../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="./../../../assets/dist/js/jquery-cookie-master/src/jquery.cookie.js"></script>
+    <script src="./../../../assets/dist/js/login.js"></script>
+    <script src="./../../../assets/dist/js/adminlte.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/validator.tool/dist/validator.min.js"></script>
+    <title>Amexpert - AMS V2A</title>
+    <!-- <script defer="defer" src="/static/js/main.069f0b50.js"></script> -->
+    <link href="./../../../assets/dist/css/adminlte.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./../../../assets/plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style data-styled="" data-styled-version="5.3.5"></style>
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/282.e4ab9df4.chunk.css" /> -->
+    <link href='./../../assets/plugins/fullcalendar/main.css' rel='stylesheet' />
+    <link href="./../../../assets/dist/css/virtual-select.min.css" rel="stylesheet" />
+    <script src='./../../assets/plugins/fullcalendar/main.js'></script>
+    <script src='./../../assets/plugins/fullcalendar/locales-all.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link href="./../../../assets/dist/css/spinner.css" rel="stylesheet" />
+    <script src="./../../../assets/dist/js/jquery-cookie-master/jquery.toaster.js" type="text/javascript"></script>
+
+    <script src="./../../../assets/dist/js/virtual-select.min.js"></script>
+    <script src="./../../../assets/dist/js/inputValidator.js"></script>
+    <script src="./../../../assets/dist/js/validationTextMessage.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script src="https://cdn.syncfusion.com/ej2/21.2.3/dist/ej2.min.js" type="text/javascript"></script>
+</head>
+
+<body classname="hold-transition sidebar-mini layout-navbar-fixed" style="height: auto">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="wrapper">
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light relative" id="main-navbar">
+                <!-- header -->
+                <img src="./../../../assets/brand/logo.png" alt="Logo"
+                    style="position: absolute;left: 50%;top: 20px;transform: translate(-50%, 0%);" />
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" role="button" href="/"><i
+                                class="fas fa-bars"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.history.go(-1);" title="Page précedente" role="button"
+                            style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-underline" data-widget="control-sidebar" data-slide="true"
+                            role="button" href id="logout" style="color: red">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" id="aside-navbar">
+                <!-- aside bar -->
+                <a class="brand-link" href="../../../index.html"
+                    style="display: block; text-align: center; margin: auto"><span class="brand-text">AMS V2</span></a>
+                <div
+                    class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+                    <div class="os-resize-observer-host observed">
+                        <div class="os-resize-observer" style="left: 0px; right: auto"></div>
+                    </div>
+                    <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left">
+                        <div class="os-resize-observer"></div>
+                    </div>
+                    <div class="os-content-glue"></div>
+                    <div class="os-padding">
+                        <div class="os-viewport os-viewport-native-scrollbars-invisible">
+                            <div class="os-content" style="height: 100%; width: 100%">
+                                <div class="user-panel mt-1 pb-1 mb-3 d-flex justify-content-center align-items-center">
+                                    <div class="info">
+                                        <a class="d-block text-decoration-underline" href="../../profil/index.html"
+                                            id="name_user" style="display: inline;"></a>
+                                    </div>
+                                </div>
+                                <nav class="mt-2" style="overflow-y: scroll;max-height: 590px;">
+                                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                        data-accordion="false">
+                                        <li class="nav-item agentsecteur administrateur agentconstat">
+                                            <a class="nav-link" href="../../../index.html">
+                                                <i class="bi bi-speedometer2"></i>
+                                                <p>Tableau de Bord</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur " id="hide">
+                                            <a class="nav-link sub-menu" href="#">
+                                                <i class="bi bi-people"></i>
+                                                <p>Participants</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item" id="add_user_link">
+                                                    <a class="nav-link" href="../../participants/ajouter.html"><i
+                                                            class="bi bi-person-plus"></i>
+                                                        <p>Ajouter un participant</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item" href="../../participants/index.html"
+                                                        list.html><i class="bi bi-list-columns-reverse"></i>
+                                                        <p>Liste des participants</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item " id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-people"></i>
+                                                <p>Compte Client</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item" id="add_user_link">
+                                                    <a class="nav-link" href="../../compteClient/ajouter.html"><i
+                                                            class="bi bi-person-plus"></i></i>
+                                                        <p>Ajouter un compte client</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../../compteClient/index.html"><i
+                                                            class="bi bi-list-columns-reverse"></i>
+                                                        <p>Liste des compte client</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur " id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Logement</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item" href="../../logements/ajouter.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Ajouter un Logement</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="../../logements/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Liste de Logements</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="nav-item agentsecteur agentconstat" id="hide">
+                                            <a class="nav-link" href="../../constats/index.html"><i
+                                                    class="bi bi-list-columns-reverse"></i>
+                                                <p>Constats</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="sub-menu nav-item agentsecteur administrateur" id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Bibliothèque Logement</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../../bibliothequeLogement/extension/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Extension</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../../bibliothequeLogement/voie/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Voies</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeLogement/cles/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Clés</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeLogement/compteur/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Compteurs</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeLogement/rubrique/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Rubriques</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeLogement/piece/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Pièces</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeLogement/logements/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Logements</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="sub-menu nav-item administrateur" id="hide">
+                                            <a class="nav-link sub-menu" href="#"><i class="bi bi-house"></i>
+                                                <p>Bibliothèque Commentaire</p>
+                                                <i class="fas fa-angle-left right"></i>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+                                                <li class="nav-item">
+                                                    <a class="nav-link nav-item"
+                                                        href="../../bibliothequeCommentaire/cles/index.html">
+                                                        <i class="bi bi-house-add"></i>
+                                                        <p>Clés</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeCommentaire/compteur/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Compteurs</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeCommentaire/rubrique/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Rubriques</p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                        href="../../bibliothequeCommentaire/commentaire/index.html">
+                                                        <i class="bi bi-houses"></i>
+                                                        <p>Autres Commentaires</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+                        <div class="os-scrollbar-track">
+                            <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px)"></div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+                        <div class="os-scrollbar-track">
+                            <div class="os-scrollbar-handle" style="height: 31.7881%; transform: translate(0px, 0px)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-scrollbar-corner"></div>
+                </div>
+            </aside>
+            <div class="content-wrapper" style="min-height: 748px" id="main-content">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Ajout un Rdv EDL</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item active">EDL</li>
+                                    <li class="breadcrumb-item active">
+                                        Ajout un Rdv EDL
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="card" style="padding: 0px; width: 100%;">
+                                <div class="card-header" style="padding: .5rem 1rem 0rem">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="validation">
+                                            <button class="nav-link active " id="home-tab" data-bs-toggle="tab"
+                                                data-bs-target="#appartement" type="button" role="tab"
+                                                aria-controls="appartement" aria-selected="true">Fiche EDL</button>
+                                        </li>
+                                        <li class="nav-item" role="list">
+                                            <button class="nav-link " id="pavillons-tab" data-bs-toggle="tab"
+                                                data-bs-target="#pavillons" type="button" role="tab"
+                                                aria-controls="pavillons" aria-selected="false">Signataires</button>
+                                        </li>
+                                        <li class="nav-item" role="list">
+                                            <button class="nav-link " id="chiffrages-tab" data-bs-toggle="tab"
+                                                data-bs-target="#chiffrage" type="button" role="tab"
+                                                aria-controls="chiffrage" aria-selected="false">RDV</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body" style="padding: 0;">
+                                    <form method="POST" id="form">
+                                        <div class="tab-content " id="myTabContent">
+                                            <div class="tab-pane fade show active" id="appartement" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <!-- detail form -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Compte
+                                                                    Client</label><input type="text"
+                                                                    class="form-control" name="compte_client_of_edl"
+                                                                    id="compte_client_of_edl" disabled />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Logement</label><input
+                                                                    type="text" class="form-control"
+                                                                    name="logement_of_edl" id="logement_of_edl"
+                                                                    disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Ref EDL</label><input
+                                                                    type="text" class="form-control" name="ref_edl"
+                                                                    id="ref_edl" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">EDL Realisé le</label>
+                                                                <input type="date" class="form-control"
+                                                                    name="edl_realiser_le" id="edl_realiser_le"
+                                                                    data-parsley-required />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Heure</label>
+                                                                <input type="time" class="form-control" name="heure"
+                                                                    id="heure" data-parsley-required />
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Type EDL</label>
+                                                                <select class="form-control" name="type_de_edl"
+                                                                    id="type_de_edl" data-parsley-required>
+                                                                    <option value="sortant">Sortant</option>
+                                                                    <option value="entrant">Entrant</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Date d'entrée</label>
+                                                                <input type="date" class="form-control"
+                                                                    name="date_d_entrer" id="date_d_entrer"
+                                                                    data-parsley-required />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Date de Sortie</label>
+                                                                <input type="date" class="form-control"
+                                                                    name="date_de_sortir" id="date_de_sortir"
+                                                                    data-parsley-required />
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Motif</label>
+                                                                <input class="form-control" class="form-control"
+                                                                    name="motif" id="motif" />
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Avancement</label>
+                                                                <select class="form-control" name="avancement"
+                                                                    id="avancement" data-parsley-required>
+                                                                    <option value="approuve">Prêt pour constat</option>
+                                                                    <option value="report">Reporté</option>
+                                                                    <!-- <option value="attente">En attente</option> -->
+                                                                    <option value="regeter">Rejeté</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade " id="pavillons" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <!-- divers -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Role</label>
+                                                                <select type="text" class="form-control" name="role"
+                                                                    id="role">
+                                                                    <option selected value="choix">-- Choisissez un rôle
+                                                                        --</option>
+                                                                    <option value="utilisateur">
+                                                                        <!--- id="compte_client_id" -->
+                                                                        Utilisateur
+                                                                    </option>
+                                                                    <option value="participant">Participant</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Nom du
+                                                                    Signataire</label>
+                                                                <select type="text" class="form-control"
+                                                                    name="nom_du_signatatire" id="nom_du_signatatire">
+                                                                    <option selected>-- Choisissez un Signataire --
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button class="btn btn-primary" id="ajout_signataire">Ajouter un
+                                                            signataire</button>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row" id="signataire_list">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <th></th>
+                                                                <th>Nom</th>
+                                                                <th>Provenance</th>
+                                                                <th></th>
+                                                            </thead>
+
+                                                            <tbody id="signataire_list_tbody">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade " id="chiffrage" role="tabpanel"
+                                                aria-labelledby="chiffrage-tab">
+                                                <!-- Pieces et rubriques -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Date</label>
+                                                                <input type="date" class="form-control" name="date_rdv"
+                                                                    id="date_rdv" data-parsley-required />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Heure</label>
+                                                                <input type="time" class="form-control" name="heure_rdv"
+                                                                    id="heure_rdv" data-parsley-required />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Intervenant</label>
+                                                                <select class="form-control" name="intervenant"
+                                                                    id="intervenant" data-parsley-required>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Avancement</label>
+                                                                <select class="form-control" name="avancement_rdv"
+                                                                    id="avancement_rdv" data-parsley-required>
+                                                                    <option value="annuler">Annulé</option>
+                                                                    <option value="en_attente">En attente</option>
+                                                                    <option value="entraitment">En traitement</option>
+                                                                    <option value="rejeter">Rejeté</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Motif</label>
+                                                                <input type="text" name="motif_annulation"
+                                                                    id="motif_annulation" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <button class="btn btn-primary" id="ajout_rdv">Ajouter
+                                                            RDV</button>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row" id="rdv_edl_list">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <th></th>
+                                                                <th>Date et Heure</th>
+                                                                <th>Intervenant</th>
+                                                                <th>Avancement</th>
+                                                                <th>Motif d'annulation</th>
+                                                                <th></th>
+                                                            </thead>
+
+                                                            <tbody id="rdv_edl_list_tbody">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade " id="com" role="tabpanel"
+                                                aria-labelledby="com-tab">
+                                                <!-- cles -->
+                                            </div>
+
+                                            <div class="tab-pane fade " id="cell" role="tabpanel"
+                                                aria-labelledby="cell-tab">
+                                                <!-- compteurs -->
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" id="go" type="submit">Enregistrer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+            <footer class="main-footer"
+                style="max-height: 57px; height: 57px; display: flex; justify-content: space-between;">
+                <p><b>Version</b> 2.0.0 <strong>
+                        Tous droits réservés. © <span id="copyright_year"></span>
+                    </strong></p>
+                <a href="https://amexpert.pro/" rel="noopener noreferrer" target="_blank"
+                    style="color: black"><b>AMEXPERT</b></a>
+            </footer>
+        </div>
+    </div>
+
+    <script src="./../../../assets/dist/js/edlLogement.js" async></script>
+
+    <script type="text/javascript">
+
+        $.removeCookie('rdv_edl_list');
+        $.removeCookie('signataire_list');
+
+        loadSignataires();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#compte_client_of_edl").val($.cookie('nom_client'))
+            $("#logement_of_edl").val($.cookie('info_logement'))
+
+            renderRdvList();
+            renderSignataireList();
+            // $.removeCookie('rdv_edl_list');
+
+
+            $("#nom_du_signatatire").append(`
+            <option value="${localStorage.getItem("id_user_logged")}">${localStorage.getItem("first_name")} ${localStorage.getItem("name")} ${"___"} ${localStorage.getItem("group")}  </option> 
+        `)
+
+            // $("#role").val("participant").trigger("change");
+
+            $("#nom_du_signatatire").trigger("change");
+
+            $("#role").on("change", (e) => {
+                let url;
+                $("#nom_du_signatatire").html("");
+                if (e.target.value === "participant") {
+                    url = "http://195.15.218.172/edlgateway/api/v1/planif/edl/signataire/particpant/?ID=";
+                    $.ajax({
+                        method: "GET",
+                        headers: {
+                            Authorization: "Bearer " + token,
+                        },
+                        url: "http://195.15.218.172/edlgateway/api/v1/participant/client/indivi/tous?ID=" + $.cookie("id_Client"),
+                        success: (response) => {
+
+                            let users = response['results'];
+                            users.forEach(elt => {
+                                $("#nom_du_signatatire").append(`
+                            <option value="${elt["id"]}">${elt["prenom"]} ${elt["nom"]} ${"___"} ${elt["role"]}  </option> 
+                        `)
+                            })
+
+                        },
+                        error: (response) => {
+
+                        }
+                    });
+
+                } else {
+                    $("#nom_du_signatatire").html("");
+                    $.ajax({
+                        method: "GET",
+                        headers: {
+                            Authorization: "Bearer " + token,
+                        },
+                        url: "http://195.15.218.172/manager_app/user/tri/?agent=" + "47" + "&role=Agent%20constat",
+                        success: (response) => {
+
+                            let users = response['results'];
+                            $("#nom_du_signatatire").append(`
+                            <option value="${localStorage.getItem("id_user_logged")}">${localStorage.getItem("first_name")} ${localStorage.getItem("name")} ${"___"} ${localStorage.getItem("group")}  </option> 
+                        `)
+                            users.forEach(elt => {
+                                $("#nom_du_signatatire").append(`
+                            <option value="${elt["agent"]}">${elt["first_name"]} ${elt["last_name"]} ${"___"} ${elt["groups"][0]["group"]}  </option> 
+                        `)
+                            })
+
+                        },
+                        error: (response) => {
+
+                        }
+                    });
+
+
+                }
+            });
+
+            $("#intervenant").on("change", (e) => {
+                if ($.cookie("intervenant")) $.removeCookie('intervenant');
+
+                signataire_list = new Map(JSON.parse($.cookie("signataire_list")));
+
+                let table = signataire_list.get(e.target.value)["table"];
+                let id = signataire_list.get(e.target.value)["id"];
+
+                data = { table: table, id: id };
+
+                $.cookie("intervenant", JSON.stringify(data));
+            });
+
+            $("#ajout_rdv").on("click", function (e) {
+                e.preventDefault();
+                addRdv();
+                renderRdvList();
+            });
+
+            $("#ajout_signataire").on("click", function (e) {
+                e.preventDefault();
+
+                addSignataire();
+                renderSignataireList();
+            });
+
+            $("#go").on("click", function (e) {
+                e.preventDefault();
+                addEDLLogement();
+            });
+
+        });
+    </script>
+    <script src="./../../../assets/dist/js/pageLoader.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Ajouter un Utilisateur</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item ">Utilisateur</li>
+                    <li class="breadcrumb-item ">
+                        Ajouter un Utilisateur
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ajouter un Utilisateur</h3>
+                        <center>
+                            <p id="error_form" style="color:red;display: none;"> <strong>Attention!!! Tous les champs
+                                    sont obligatoires</strong></p>
+                        </center>
+                    </div>
+                    <form method="POST" id="form">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Login</label><input type="text"
+                                            class="form-control" placeholder="Le login" name="login"
+                                            autocomplete="false" id="login" required />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Prénom</label><input type="text"
+                                            class="form-control" placeholder="Prénom de l'utilisateur"
+                                            autocomplete="false" name="prenom" id="prenom" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nom</label><input type="text"
+                                            class="form-control" placeholder="Nom de l'utilisateur" autocomplete="false"
+                                            name="nom" id="nom" required />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label><input type="email"
+                                            class="form-control" placeholder="Entre votre email" autocomplete="false"
+                                            name="email" id="email" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Adresse</label><input type="text"
+                                            class="form-control" placeholder="Entre l'adresse" name="address"
+                                            id="adresse" autocomplete="false" required />
+                                        <i id="erreurPhone" style="display: None;"><small
+                                                style="color: rgb(248, 31, 31);"></small></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Téléphone</label><input type="text"
+                                            class="form-control" placeholder="Entre le numéro de telephone"
+                                            name="telephone" id="telephone" autocomplete="false" required />
+                                        <i id="erreurPhone" style="display: None;"><small
+                                                style="color: rgb(248, 31, 31);">Le numéro de téléphone doit commencer
+                                                par 0 et avoir 10 chiffres</small></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mot de passe</label><input type="password"
+                                    class="form-control" placeholder="Entre le mdp" autocomplete="false" name="mdp"
+                                    id="mdp" />
+                            </div>
+
+                            <div class="form-group" id="users_add">
+                                <label for="exampleInputEmail1">Role</label>
+                                <select class="form-control" name="role" id="type_user">
+                                    <option>-- role --</option>
+                                    <option value="3" class="admin">Administrateur</option>
+                                    <option value="1" class="agent_secteur">Agent Secteur</option>
+                                    <option value="2" class="agent_constat">Agent Constat</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="compte_client">
+                                <label for="exampleInputEmail1">Compte Client</label>
+                                <select class="form-control" name="compte_client" id="compte_client_list" required>
+
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button id="go" style="display: inline;" class="btn btn-primary"> Enregistrer
+                            </button>&nbsp;&nbsp;
+                            <a id="leave" style="display: inline;" class="btn btn-danger" onclick="window.history.go(-1)">
+                                Annuler
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="amsV2/../assets/dist/js/user.js" async></script>
+<script type="text/javascript">
+   
+    $(document).ready(async function () {
+
+        $("#compte_client").css("display", "none");
+
+        let role = localStorage.getItem("group").toLowerCase();
+
+        if (role === "agent secteur") {
+            // $(".admin").css("display", "none");
+            $(".admin").attr("disabled", true);
+            $(".agent_secteur").attr("disabled", true);
+        }
+
+        $.ajax({
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            url: "http://195.15.218.172/edlgateway/api/v1/participant/client/all?start=1&limit=1&count=100",
+            success: function (response) {
+                let results = response.results;
+
+                results.forEach(elt => {
+                    $("#compte_client_list").append(
+                        `<option value="${elt.id}">${elt.nom}</option>`
+                    )
+                });
+            },
+            error: function () {
+               
+            }
+        });
+    });
+</script>
+
+<script>
+    $("input, select").attr("autocomplete", "off");
+    var options = {
+        rules: {
+            'login': { required: [true, message["required"]], minLength: [2, message["minLength"](2)] },
+            'prenom': { required: [true, message["required"]] },
+            'nom': { required: [true, message["required"]] },
+            'mdp': { minLength: [5, message["minLength"](5)], required: [true, message["required"]] },
+            'address': { required: [true, message["required"]] },
+            'telephone': { required: [true, message["required"]] },
+            'email': { required: [true, message["required"]], email: [true, message["email"]] },
+        }
+    };
+
+    var formObject = new ej.inputs.FormValidator('#form', options);
+
+    $("#go").click(function (e) {
+        e.preventDefault();
+        if (formObject.validate()) addUser();
+    });
+
+    $("#type_user").change(function (e) {
+        if (e.currentTarget.value === "1" || e.currentTarget.value === "2") {
+            $("#compte_client").css("display", "block"); $("#compte_client_list").prop("required", true);
+            formObject.addRules('compte_client', { required: [true, message["required"]] });
+        }
+        else {
+            formObject.removeRules('compte_client', ["required"]);
+            $("#compte_client").css("display", "none");
+        }
+    });
+
+    $("input, select").on(("change keyup"), () => {
+        formObject.validate();
+        $("input.e-error, select.e-error, textarea.e-error").length > 0 ? $("#go").prop("disabled", true) : $("#go").prop("disabled", false);;
+    });
+
+    $("#go").prop("disabled", true);
+
+
+
+
+</script>
