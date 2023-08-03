@@ -67,7 +67,7 @@ function logout() {
   $.ajax({
     type: "GET",
     url:
-      "http://195.15.228.250/manager_app/logout/?token=" +
+      "http://195.15.218.172/manager_app/logout/?token=" +
       localStorage.getItem("refresh"),
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),

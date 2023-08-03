@@ -1,4 +1,4 @@
-var Url = "http://195.15.228.250/manager_app/backup/password/?email=";
+var Url = "http://195.15.218.172/manager_app/backup/password/?email=";
 function getData() {
   $("#suivant").html("Requêtes en cours...");
   if (!$("#email").val()) {
@@ -12,7 +12,7 @@ function getData() {
   $.ajax({
     type: "GET",
     url:
-      "http://195.15.228.250/manager_app/backup/password/?email=" +
+      "http://195.15.218.172/manager_app/backup/password/?email=" +
       $("#email").val(),
     success: function (response) {
       $("#suivant").html("Suivant");
@@ -45,7 +45,7 @@ function resetPass() {
   $("#resetPassword").html("Requêtes en cours...");
   $.ajax({
     type: "POST",
-    url: "http://195.15.228.250/manager_app/backup/password/",
+    url: "http://195.15.218.172/manager_app/backup/password/",
     data: { email: $("#email").val() },
     success: function () {
       $.toaster({
