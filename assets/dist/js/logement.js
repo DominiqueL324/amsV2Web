@@ -21,6 +21,7 @@ function getAllLogement(idClient=0) {
       $("#contentTableUser").empty();
       
       response["results"].forEach((elt) => {
+        //console.log(elt);
         let type_de_constat;
         if (elt["type_de_constat"] === "avenant_constat") {
           type_de_constat = "AVENANT AU CONSTAT";
@@ -29,7 +30,10 @@ function getAllLogement(idClient=0) {
         } else if (elt["type_de_constat"] === "avenant_ap_travaux") {
           type_de_constat = "AVENANT APRES TRAVAUX";
         }
-        
+        let elT = {
+          "client" : elt["client"]['_id'],
+          "logement":elt["_id"]
+        };
         $("#contentTableUser").append(
           `<tr>
             <td>${i}</td>
@@ -41,9 +45,7 @@ function getAllLogement(idClient=0) {
                 <a onclick=goWhereEdit("${
                   elt["_id"]
                 }")><i class="bi bi-pencil" style="color: rgb(0, 0, 0)"></i></a>&nbsp;
-                <a onclick=getEdlList("${
-                  elt["_id"]
-                }")><i class="bi bi-house" style="color: rgb(0, 0, 0)" title="Liste des Rdv EDL du logement"></i></a>
+                <a onclick=getEdlList('${elt["_id"]}','${elt["client"]['_id']}')><i class="bi bi-house" style="color: rgb(0, 0, 0)" title="Liste des Rdv EDL du logement"></i></a>
             </td>
             
           </tr>`
@@ -61,6 +63,7 @@ $('#compte_client_index').on('change',function(){
   if($('#compte_client_index').val() == "-1"){
     getAllLogement();
   }else{
+    localStorage.setItem("id_Client", $('#compte_client_index').val());
     getAllLogement($('#compte_client_index').val());
   }
   
@@ -71,9 +74,12 @@ function goWhereEdit(id) {
   window.location.replace("./../logements/modifier.html");
 }
 
-function getEdlList(id) {
-  // get the EDL list of a house
-  localStorage.getItem("id_logement_edl", id,{ path: '/' });
+function getEdlList(id,id_Client) {
+  
+  // get the EDL list of a house 
+  localStorage.setItem("id_logement_edl", id);
+  localStorage.setItem("id_Client",id_Client);
+  //alert()
   window.location.replace("./../edl/edlLogement/index.html");
 }
 

@@ -8,7 +8,7 @@ function getAllMyEdl() {
     type: "GET",
     url:
       "http://195.15.218.172/edlgateway/api/v1/planif/edl/edl/compte_client?ID=" +
-      $.cookie("id_Client"),
+      localStorage.getItem("id_Client"),
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
@@ -47,16 +47,16 @@ function getClientOfEdl(){
     type: "GET",
     url:
       "http://195.15.218.172/edlgateway/api/v1/planif/edl/single_logement/?ID=" +
-      $.cookie("id_logement_edl"),
+      localStorage.getItem("id_logement_edl"),
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
     success: function (response) {
-      $.cookie('id_logement',response.results['id'],{ path: '/' })
-      $.cookie('id_Client',response.results['client']['_id'],{ path: '/' })
-      $.cookie('nom_client',response.results['client']['nom'],{ path: '/' })
-      $.cookie('info_logement',"Type de logement: "+response.results["type_log"]["nom"]+"; Secteur: "+response.results["secteur"]+"; Ville: "+response.results["ville"],{ path: '/' })
-      $('#nomClient').text($.cookie('nom_client'));
+      localStorage.setItem('id_logement',response.results['id'])
+      localStorage.setItem('id_Client',response.results['client']['_id'])
+      localStorage.setItem('nom_client',response.results['client']['nom'])
+      localStorage.setItem('info_logement',"Type de logement: "+response.results["type_log"]["nom"]+"; Secteur: "+response.results["secteur"]+"; Ville: "+response.results["ville"])
+      $('#nomClient').text(localStorage.getItem('nom_client'));
     },
     error: function (response) {
       
@@ -65,7 +65,7 @@ function getClientOfEdl(){
 }
 
 function goView (id) {
-  $.cookie("view_edl_id", id);
+  localStorage.setItem("view_edl_id", id);
   window.location.replace("./../edl/edlLogement/view.html");
 }
 
@@ -74,7 +74,7 @@ function getSingleLogement () {
 
   $.ajax({
     method: "GET",
-    url: "http://195.15.218.172/edlgateway/api/v1/planif/edl/indivi?start=0&limit=0&count=0&ID=" + $.cookie("view_edl_id"),
+    url: "http://195.15.218.172/edlgateway/api/v1/planif/edl/indivi?start=0&limit=0&count=0&ID=" + localStorage.getItem("view_edl_id"),
     success: (response) => {
       
     },

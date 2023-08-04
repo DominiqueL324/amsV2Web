@@ -78,13 +78,13 @@ function loadSignataires() {
     method: "GET",
     url:
       "http://195.15.218.172/edlgateway/api/v1/planif/edl/part/?ID=" +
-      $.cookie("compte_client_id"),
+      localStorage.getItem("id_Client"),
     headers: {
       Authorization: localStorage.getItem("token"),
     },
     success: (response) => {
       
-      response["result"].forEach((elt) => {
+      response["results"].forEach((elt) => {
         $("#nom_du_signatatire").append(`
         <option value="${elt["id"]}">${elt["nom"]}</option>
         `);

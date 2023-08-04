@@ -620,19 +620,12 @@
 
     <script src="./../../../assets/dist/js/edlLogement.js" async></script>
 
-    <script type="text/javascript">
-
-        $.removeCookie('rdv_edl_list');
-        $.removeCookie('signataire_list');
-
-        loadSignataires();
-    </script>
 
     <script>
         $(document).ready(function () {
-
-            $("#compte_client_of_edl").val($.cookie('nom_client'))
-            $("#logement_of_edl").val($.cookie('info_logement'))
+            loadSignataires();
+            $("#compte_client_of_edl").val(localStorage.getItem('nom_client'))
+            $("#logement_of_edl").val(localStorage.getItem('info_logement'))
 
             renderRdvList();
             renderSignataireList();
@@ -657,7 +650,7 @@
                         headers: {
                             Authorization: "Bearer " + token,
                         },
-                        url: "http://195.15.218.172/edlgateway/api/v1/participant/client/indivi/tous?ID=" + $.cookie("id_Client"),
+                        url: "http://195.15.218.172/edlgateway/api/v1/participant/client/indivi/tous?ID=" + localStorage.getItem("id_Client"),
                         success: (response) => {
 
                             let users = response['results'];
