@@ -673,7 +673,7 @@
                         headers: {
                             Authorization: "Bearer " + token,
                         },
-                        url: "http://195.15.218.172/manager_app/user/tri/?agent=" + "47" + "&role=Agent%20constat",
+                        url: "http://195.15.218.172/manager_app/user/tri/?agent=" + localStorage.getItem("id_user_logged") + "&role=Agent%20constat",
                         success: (response) => {
 
                             let users = response['results'];
