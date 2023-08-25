@@ -31,16 +31,10 @@ const loadPage = () => {
   protect(usrTyp);
 };
 
-function resetUserData() {
-  var cookies = $.cookie();
-  for (var cookie in cookies) {
-    $.cookie(cookie);
-  }
-}
 
 function logout() {
   if (!localStorage.getItem("token")) {
-    // alert('no cookie found')
+    
     window.location.replace(
       `${window.location.protocol}//${window.location.host}/amsv2/login.html`
     );
@@ -74,18 +68,15 @@ function logout() {
     },
     success: function (response) {
       //resetUserData();
-      // $.cookie("token", null);
+      
       localStorage.removeItem("token");
-      // alert('successfully and removed cookie');
-
+      
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
       );
     },
     error: function (response) {
       resetUserData();
-      // alert('not successfully and removed cookie');
-      // $.cookie("token", null);
       localStorage.removeItem("token");
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
