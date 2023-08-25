@@ -25,61 +25,45 @@ function getAllRdv() {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var couleur;
-        if (parseInt(elt["statut"]) == 1) {
+        if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
+        } else {
           couleur = "rgb(255, 166, 93)";
         }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
-        }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
+
+        let addEdlOption;
+
+        if (elt["edl"] !== "1") {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
         }
 
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td>\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td>\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a  onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="fa fa-calendar" aria-hidden="true" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
+        $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+          2,
+          "0"
+        )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ""}
+            </td>
+          </tr>
+        `);
         i++;
       });
       $("#waiters").css("display","none")
@@ -178,70 +162,54 @@ function code(url_) {
       prev = response["previous"]
       $("#total").text(max_);
       $("#contentTableRdv").empty();
-      response["results"].forEach((elt) => {
-        var formattedDate = new Date(elt["date"]);
-        var d = formattedDate.getDate();
-        var m = formattedDate.getMonth();
-        m += 1; // JavaScript months are 0-11
-        var y = formattedDate.getFullYear();
+       response["results"].forEach((elt) => {
+         var formattedDate = new Date(elt["date"]);
+         var d = formattedDate.getDate();
+         var m = formattedDate.getMonth();
+         m += 1; // JavaScript months are 0-11
+         var y = formattedDate.getFullYear();
+         var couleur;
+         if (parseInt(elt["edl"]) == "1") {
+           couleur = "rgb(241, 67, 67)";
+         } else {
+           couleur = "rgb(255, 166, 93)";
+         }
 
-        var couleur;
-        if (parseInt(elt["statut"]) == 1) {
-          couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
-          couleur = "rgb(255, 166, 93)";
-        }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
-        }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
-        }
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td>\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td>\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="bi bi-eye" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
-        i++;
-      });
+         let addEdlOption;
+
+         if (elt["edl"] !== "1") {
+           addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
+         }
+
+         $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+           2,
+           "0"
+         )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ""}
+            </td>
+          </tr>
+        `);
+         i++;
+       });
     },
     error: function (response) {
     },

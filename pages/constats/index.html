@@ -101,6 +101,13 @@
                                             </a>
                                         </li>
 
+                                        <li class="nav-item agentsecteur administrateur agentconstat">
+                                            <a class="nav-link" href="/pages/rdv/index.html">
+                                                <i class="bi bi-calendar-day-fill"></i>
+                                                <p>RDV</p>
+                                            </a>
+                                        </li>
+
                                         <li class="sub-menu nav-item agentsecteur " id="hide">
                                             <a class="nav-link sub-menu" href="#">
                                                 <i class="bi bi-people"></i>
@@ -383,7 +390,7 @@
             e.preventDefault();
             
             if ($("#logement").val()) {
-                $.cookie("id_logement_edl", $("#logement").val());
+                localStorage.setItem("id_logement_edl", $("#logement").val());
                 window.location.replace("./../edl/edlLogement/ajouter.html");
             }
         });

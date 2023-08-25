@@ -74,13 +74,14 @@ function configCal() {
 }
 function getEvent(debut, fin) {
   let url_ ="";
-  let role = $.cookie('group');
-  let user_id = $.cookie("id_user_logged");
+  let role = localStorage.getItem('group');
+  let user_id = localStorage.getItem("id_user_logged");
   if(role=="Administrateur"){
       url_ = "http://195.15.218.172/edlgateway/api/v1/planif/edl/all?start=12&limit=12&count=12";
   }
   if(role=="Agent secteur"){
-      url_ = "http://195.15.218.172/edlgateway/api/v1/planif/edl/part/?ID="+user_id;
+    // url_ = "http://195.15.218.172/edlgateway/api/v1/planif/edl/part/?ID=" + user_id;
+    url_ = "http://195.15.218.172/rdv_app/rdv/?paginated=t";
   }
 
   calendar.removeAllEvents();
@@ -96,8 +97,11 @@ function getEvent(debut, fin) {
       response["results"]?.forEach((elt) => {
         ev = {
           id: elt["_id"],
-          title: elt['logement']['client']['nom'],
-          start: elt["date_edl"],
+          title:
+            elt["client"]["user"]["prenom"] +
+            " " +
+            elt["client"]["user"]["nom"],
+          start: elt["date"],
           backgroundColor: "rgb(245, 196, 61)",
           borderColor: "rgb(245, 196, 61)",
         };
@@ -127,7 +131,7 @@ function loadStat() {
       $("#nombre_client").text("");
       $("#rdv_attente").text("");
       $("#rdv_valide").text("");
-      if ($.cookie("group") == "Administrateur") {
+      if (localStorage.getItem("group") == "Administrateur") {
         $("#nombre_user").text(response["stats"]["utilisateurs"]);
         $("#nombre_admin").text(response["stats"]["admin"]);
         $("#agent_nombre").text(response["stats"]["agent"]);
@@ -135,7 +139,7 @@ function loadStat() {
         $("#rdv_attente").text(response["stats"]["rdv_attente"]);
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
-      if ($.cookie("group") == "Client pro") {
+      if (localStorage.getItem("group") == "Client pro") {
         $("#adminbox").remove();
         $("#agentbox").remove();
         $("#clientbox").remove();
@@ -150,7 +154,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Agent constat") {
+      if (localStorage.getItem("group") == "Agent constat") {
         $("#adminbox").remove();
         $("#agentbox").remove();
         $("#user_box").remove();
@@ -163,7 +167,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Audit planneur") {
+      if (localStorage.getItem("group") == "Audit planneur") {
         $("#adminbox").remove();
         $("#agentbox").remove();
         $("#user_box").remove();
@@ -176,7 +180,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Agent secteur") {
+      if (localStorage.getItem("group") == "Agent secteur") {
         $("#adminbox").remove();
         $("#user_box").remove();
         $("#nombre_user").text(response["stats"]["utilisateurs"]);
@@ -188,7 +192,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Salarie") {
+      if (localStorage.getItem("group") == "Salarie") {
         $("#adminbox").remove();
         $("#user_box").remove();
         $("#agentbox").remove();
@@ -204,7 +208,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Client pro") {
+      if (localStorage.getItem("group") == "Client pro") {
         $("#adminbox").remove();
         $("#agentbox").remove();
         $("#clientbox").remove();
@@ -219,7 +223,7 @@ function loadStat() {
         $("#rdv_valide").text(response["stats"]["rdv_valide"]);
       }
 
-      if ($.cookie("group") == "Client particulier") {
+      if (localStorage.getItem("group") == "Client particulier") {
         $("#adminbox").remove();
         $("#agentbox").remove();
         $("#clientbox").remove();

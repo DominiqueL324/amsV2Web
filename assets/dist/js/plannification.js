@@ -1,13 +1,15 @@
 var next = "";
 var prev = "";
-function getAgentManage(as, ap,secteur) {
+// let token = localStorage.getItem("token");
+
+function getAgentManage(as, ap, secteur) {
   var content = "";
-  data={}
-  if($.cookie('group')=="Agent secteur"){
-    data = {"agent":$.cookie('id_user_logged'),"planneur":"okay"}
+  data = {};
+  if ($.cookie("group") == "Agent secteur") {
+    data = { agent: $.cookie("id_user_logged"), planneur: "okay" };
   }
-  if($.cookie('group')=="Audit planneur"){
-    data = {"agent":secteur,"planneur":"okay","add_secteur":"no"}
+  if ($.cookie("group") == "Audit planneur") {
+    data = { agent: secteur, planneur: "okay", add_secteur: "no" };
   }
   $.ajax({
     type: "GET",
@@ -15,23 +17,39 @@ function getAgentManage(as, ap,secteur) {
     headers: {
       Authorization: "Bearer " + token,
     },
-    data:data,
+    data: data,
     success: function (response) {
       content = "<option value='0'></option>";
-      var r 
-      if(typeof(response['results'])==="undefined" ){
-        r = response
-      }else{
-        r = response['results']
+      var r;
+      if (typeof response["results"] === "undefined") {
+        r = response;
+      } else {
+        r = response["results"];
       }
       r.forEach((elt) => {
-        if(elt["user"]['group'] == "Audit planneur"){
-          content = content+ "<option value = " + elt["user"]["id"] +">" +"Planneur "+elt["user"]["nom"] +"  " +elt["user"]["prenom"] +"</option>"
-        }else{
-          content =content + "<option value = " + elt["user"]["id"] +">" +elt["user"]["nom"] +"  " +elt["user"]["prenom"] +"</option>";
+        if (elt["user"]["group"] == "Audit planneur") {
+          content =
+            content +
+            "<option value = " +
+            elt["user"]["id"] +
+            ">" +
+            "Planneur " +
+            elt["user"]["nom"] +
+            "  " +
+            elt["user"]["prenom"] +
+            "</option>";
+        } else {
+          content =
+            content +
+            "<option value = " +
+            elt["user"]["id"] +
+            ">" +
+            elt["user"]["nom"] +
+            "  " +
+            elt["user"]["prenom"] +
+            "</option>";
         }
       });
-      
 
       $("#planneur_select").empty();
       $("#planneur_select").append(
@@ -62,15 +80,11 @@ function getAgentManage(as, ap,secteur) {
         $("#planneur_val").val(ap).change();
       }
     },
-    error: function (response) {
-      
-    },
+    error: function (response) {},
   });
 }
 
-
 function getRdvToEditP() {
-
   $.ajax({
     type: "GET",
     url: rdv_add + $.cookie("rdv_to_edit").toString(),
@@ -125,14 +139,22 @@ function getRdvToEditP() {
       $("#consignes_part").val(response[0]["consignes_particuliere"]);
       $("#list_documents").val(response[0]["liste_document_recuperer"]);
       $("#info_diverses").val(response[0]["info_diverses"]);
-      
+
       if (response[0]["client"] != null) {
         getClient(response[0]["client"]["user"]["id"], (val_ = 1));
       }
       if (response[0]["passeur"] != null) {
-        getPasseur(cas = response[0]["passeur"][0]["user"]["id"],add=1,client=response[0]["client"]["user"]["id"]);
+        getPasseur(
+          (cas = response[0]["passeur"][0]["user"]["id"]),
+          (add = 1),
+          (client = response[0]["client"]["user"]["id"])
+        );
       } else {
-        getPasseur(cas = 0,add=1,client=response[0]["client"]["user"]["id"]);
+        getPasseur(
+          (cas = 0),
+          (add = 1),
+          (client = response[0]["client"]["user"]["id"])
+        );
       }
       if (response[0]["agent"] != null) {
         getAgent((cas = 1), (val_ = response[0]["agent"]["user"]["id"]));
@@ -196,7 +218,7 @@ function getRdvToEditP() {
       }
       var ap = "";
       var ac = "";
-      var secteur = response[0]["agent"]['id']
+      var secteur = response[0]["agent"]["id"];
       if (response[0]["audit_planneur"] == null) {
         ap = null;
       } else {
@@ -207,7 +229,7 @@ function getRdvToEditP() {
       } else {
         ac = response[0]["agent_constat"]["user"]["id"];
       }
-      getAgentManage(ac, ap,secteur);
+      getAgentManage(ac, ap, secteur);
       getCommentaires();
       getFiles();
       $("#statut").val(parseInt(response[0]["statut"]).toString()).change();
@@ -241,15 +263,13 @@ function getRdvToEditP() {
         $("#affectation").removeAttr("style");
         $("#validation").removeAttr("style");
       }
-      if($.cookie('group')=="Agent constat"){
+      if ($.cookie("group") == "Agent constat") {
         $("#btnPlanneur").css("display", "none");
       }
     },
-    error: function (response) {
-      
-    },
+    error: function (response) {},
   });
- }
+}
 function getCommentaires() {
   $.ajax({
     type: "GET",
@@ -293,13 +313,11 @@ function getCommentaires() {
         );
       });
     },
-    error: function (response) {
-      
-    },
+    error: function (response) {},
   });
 }
 function sendCommend() {
-  $("#editForm").modal('show');
+  $("#editForm").modal("show");
   var method = "";
   var url = "";
   var data = {};
@@ -321,16 +339,18 @@ function sendCommend() {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
-      $("#editForm").modal('hide');
+      $("#editForm").modal("hide");
       alert("Opération sur le commentaire effectuée avec succès");
       $("#comentaire").val("");
       $("#idComment").val("");
       getCommentaires();
     },
-    error: function(response){
-      $("#editForm").modal('hide');
-      alert("Opération sur le commentaire Echouée veuillez reéssayer plus tard");
-    }
+    error: function (response) {
+      $("#editForm").modal("hide");
+      alert(
+        "Opération sur le commentaire Echouée veuillez reéssayer plus tard"
+      );
+    },
   });
 }
 $("#goCommentaire").on("click", function () {
@@ -351,9 +371,7 @@ function getCommentToedit(id) {
         $("idComment").val(results[0]["id"]);
       });
     },
-    error: function (response) {
-      
-    },
+    error: function (response) {},
   });
 }
 function getFiles() {
@@ -387,8 +405,15 @@ function getFiles() {
                         <td>" +
             elt["Type"] +
             "</td>\
-		<td> <a href='javascript:void(0);' onclick=downloadF('" +route_file +final_ +"') > " +final_ +"</a></td>\
-    <td>"+elt['comment']+"</td>\
+		<td> <a href='javascript:void(0);' onclick=downloadF('" +
+            route_file +
+            final_ +
+            "') > " +
+            final_ +
+            "</a></td>\
+    <td>" +
+            elt["comment"] +
+            "</td>\
 	<td>" +
             String(d).padStart(2, "0") +
             "/" +
@@ -402,7 +427,6 @@ function getFiles() {
     },
     error: function (response) {
       alert("Echec de récupération des fichiers");
-      
     },
   });
 }
@@ -421,7 +445,7 @@ function downloadF(str) {
     });
 */
 function sendFile() {
-  $("#editForm").modal('show');
+  $("#editForm").modal("show");
   var data = {};
   data["user"] = $.cookie("id_logged_user_user");
   data["rdv"] = $.cookie("rdv_to_edit");
@@ -448,23 +472,23 @@ function sendFile() {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
-      $("#editForm").modal('hide');
+      $("#editForm").modal("hide");
       alert("Ajout du fichier réeussie");
       getFiles();
       $("#raison").val("");
       $("#doc").val("photo");
     },
-    error: function(response){
+    error: function (response) {
       alert("Echec de l'ajout du fichier");
-      $("#editForm").modal('hide');
-    }
+      $("#editForm").modal("hide");
+    },
   });
 }
 $("#goFile").on("click", function () {
   sendFile();
 });
 $("#goEditRdv").on("click", function () {
-  $("#editForm").modal('show');
+  $("#editForm").modal("show");
   data = {};
   data["nom_bailleur"] = $("#nom_bailleur").val();
   data["prenom_bailleur"] = $("#prenom_bailleur").val();
@@ -555,14 +579,13 @@ $("#goEditRdv").on("click", function () {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
-      $("#editForm").modal('hide');
+      $("#editForm").modal("hide");
       alert("RDV Modifié avec succes");
       getRdvToEditP();
     },
     error: function (response) {
-      $("#editForm").modal('hide');
+      $("#editForm").modal("hide");
       alert("Echec de modification veuillez reéssayer plus tard");
-      
     },
   });
 });
@@ -651,67 +674,54 @@ function getRdvC(pris_en_charge = 0) {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var couleur;
-        if (parseInt(elt["statut"]) == 1) {
+        if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
+        } else {
           couleur = "rgb(255, 166, 93)";
         }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
-        }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
-        }
 
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td class="text-center">\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td class="text-center">\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a  onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="fa fa-calendar" aria-hidden="true" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
+        let addEdlOption;
+
+        if (elt['edl'] !== "1") {
+addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`
+        }
+        
+
+        $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+          2,
+          "0"
+        )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ''}
+            </td>
+          </tr>
+        `);
         i++;
       });
     },
-    error: function (response) {
-      
-      
-    },
+    error: function (response) {},
   });
+}
+
+function addEdl(id) {
+  localStorage.setItem("id_cmd_id", id, { path: "/" });
+  window.location.replace("./../edl/newEdlLogement/ajouter.html");
 }

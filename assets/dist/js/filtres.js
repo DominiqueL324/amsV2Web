@@ -43,14 +43,14 @@ function filtreRdv() {
       y;
   }
 
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     data["salarie"] = $.cookie("id_logged_user_user");
     message =
       message + " passeur : " + $("#passeur_val option:selected").text();
   }
   if (
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Agent secteur"
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Agent secteur"
   ) {
     data["agent"] = $.cookie("id_logged_user_user");
 
@@ -64,7 +64,7 @@ function filtreRdv() {
       message = message + " role: " + $("#role option:selected").text();
     }
   }
-  if ($.cookie("group") == "Administrateur" || $.cookie("group") == "Audit planneur")
+  if (localStorage.getItem("group") == "Administrateur" || localStorage.getItem("group") == "Audit planneur")
    {
     if ($("#client_val").val() != 0) {
       data["client"] = $("#client_val").val();
@@ -84,10 +84,10 @@ function filtreRdv() {
   }
 
   if (
-    $.cookie("group") == "Client pro" ||
-    $.cookie("group") == "Client particulier"
+    localStorage.getItem("group") == "Client pro" ||
+    localStorage.getItem("group") == "Client particulier"
   ) {
-    data["client"] = $.cookie("id_user_logged");
+    data["client"] = localStorage.getItem("id_user_logged");
   }
   data["user"] = data["role"] = $.ajax({
     type: "GET",
@@ -108,62 +108,45 @@ function filtreRdv() {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var couleur;
-        if (parseInt(elt["statut"]) == 1) {
+        if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
+        } else {
           couleur = "rgb(255, 166, 93)";
         }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
-        }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
+
+        let addEdlOption;
+
+        if (elt["edl"] !== "1") {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
         }
 
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td class="text-center">\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td class="text-center">\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a  onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="fa fa-calendar" aria-hidden="true" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
-
+        $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+          2,
+          "0"
+        )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ""}
+            </td>
+          </tr>
+        `);
         i++;
       });
       $("#text_ok").text("");
@@ -220,18 +203,18 @@ function getClientF() {
     },
   });
   if (
-    $.cookie("group") == "Client particulier" ||
-    $.cookie("group") == "Client pro"
+    localStorage.getItem("group") == "Client particulier" ||
+    localStorage.getItem("group") == "Client pro"
   ) {
     content = "<option value='0'>***********************</option>";
     content =
       content +
       "<option value = " +
-      $.cookie("id_user_logged") +
+      localStorage.getItem("id_user_logged") +
       ">" +
-      $.cookie("name") +
+      localStorage.getItem("name") +
       " " +
-      $.cookie("first_name") +
+      localStorage.getItem("first_name") +
       "</option>";
     $("#client").empty();
     $("#client").append(
@@ -240,7 +223,7 @@ function getClientF() {
         "</select>"
     );
   }
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     content = "<option value='0'>***********************</option>";
     content =
       content +
@@ -262,14 +245,14 @@ function getClientF() {
 function getPasseurF() {
   var crt = "";
   data = {};
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     crt =
       "<option value = " +
       $.cookie("id_logged_user_user") +
       ">" +
-      $.cookie("name") +
+      localStorage.getItem("name") +
       "  " +
-      $.cookie("first_name") +
+      localStorage.getItem("first_name") +
       "</option>";
     $("#passeur").empty();
     $("#passeur").append(
@@ -298,16 +281,16 @@ function getPasseurF() {
     return;
   }
   if (
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur"
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur"
   ) {
-    data["agent"] = $.cookie("id_user_logged");
-    //alert($.cookie('id_user_logged'))
+    data["agent"] = localStorage.getItem("id_user_logged");
+    //alert(localStorage.getItem('id_user_logged'))
   }
 
-  if ($.cookie("group") == "Client pro") {
-    data["client"] = $.cookie("id_user_logged");
+  if (localStorage.getItem("group") == "Client pro") {
+    data["client"] = localStorage.getItem("id_user_logged");
   }
   $.ajax({
     type: "GET",
@@ -348,11 +331,11 @@ function getPasseurF() {
 function getAgentF() {
   data = {};
   if (
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur"
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur"
   ) {
-    data["agent"] = $.cookie("id_user_logged");
+    data["agent"] = localStorage.getItem("id_user_logged");
   }
   $.ajax({
     type: "GET",
@@ -398,7 +381,7 @@ function getAgentF() {
 }
 
 function onload() {
-  if ($.cookie("group") == "Administrateur") {
+  if (localStorage.getItem("group") == "Administrateur") {
     getClientF();
     getAgentF();
     getPasseurF();
@@ -406,18 +389,18 @@ function onload() {
       $('#role_group').css("display",'none')*/
   }
   if (
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur"
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur"
   ) {
     getClientF();
     getAgentF();
     getPasseurF();
   }
-  if ($.cookie("group") == "Client pro") {
+  if (localStorage.getItem("group") == "Client pro") {
     getPasseurF();
   }
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     getPasseurF();
   }
 }

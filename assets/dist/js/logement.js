@@ -427,11 +427,14 @@ function fetchData(id) {
       let cles = response["results"]["cles"];
       let compteurs = response["results"]["compteurs"];
       let pieces = response["results"]["pieces"];
+      
       let i = 1;
 
       $("#pieces_").html("");
       $("#contentTableCle").html("");
       $("#contentTableCompteur").html("");
+
+      console.log(response)
 
       Object.values(cles).forEach((value, key) => {
         $("#contentTableCle").append(`

@@ -92,6 +92,7 @@ function filtreUser() {
           cas_ = "désactivé";
           classe = "badge badge-danger";
         }
+
         $("#contentTableUser").append(
           "<tr>\
         <td>" +
@@ -306,7 +307,7 @@ function filtreUser() {
             elt["email"] +
             '</td>\
         <td class="text-center">\
-            <span class="badge badge-success">' +
+            <span class="badge badge-success">test' +
             elt["groups"][0]["group"] +
             "</span>\
         </td>\
