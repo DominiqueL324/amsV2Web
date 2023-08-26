@@ -513,7 +513,8 @@
                     var myChart = new Chart(ctx, config);
                     if (parseInt($("#years").val()) === 0) {
                         response.results.forEach((element) => {
-                            let month = parseInt(element['date_edl'].split('-')[1])
+                            console.log(element);
+                            let month = parseInt(element['date'].split('-')[1])
                             data[month - 1] = data[month - 1] + 1
                         });
                     } else {
