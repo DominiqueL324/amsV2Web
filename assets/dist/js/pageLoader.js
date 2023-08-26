@@ -76,7 +76,7 @@ function logout() {
       );
     },
     error: function (response) {
-      resetUserData();
+      // resetUserData();
       localStorage.removeItem("token");
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
