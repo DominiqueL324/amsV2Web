@@ -149,6 +149,7 @@ function filtreUser() {
 }
 $("#find").on("click", function () {
   cas_user = 1;
+  // alert("out");
   filtreUser();
 });
 
@@ -349,6 +350,7 @@ function filtreUser() {
 }
 $("#find").on("click", function () {
   cas_user = 1;
+  // alert("outside")
   filtreUser();
 });
 

@@ -1,7 +1,8 @@
 const loadPage = () => {
   // put code here
 
-  var usrTyp = `${localStorage?.getItem("group")
+  var usrTyp = `${localStorage
+    ?.getItem("group")
     .split(" ")
     .join("")
     .toLowerCase()}`;
@@ -31,10 +32,8 @@ const loadPage = () => {
   protect(usrTyp);
 };
 
-
 function logout() {
   if (!localStorage.getItem("token")) {
-    
     window.location.replace(
       `${window.location.protocol}//${window.location.host}/amsv2/login.html`
     );
@@ -68,9 +67,9 @@ function logout() {
     },
     success: function (response) {
       //resetUserData();
-      
+
       localStorage.removeItem("token");
-      
+
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
       );
@@ -90,9 +89,15 @@ $("#logout").on("click", (e) => {
   logout();
 });
 
-$("#waiters").load(
-  `${window.location.protocol}//${window.location.host}/amsv2/partials/spinner.html`
-);
+if (window.location.hostname === "127.0.0.1") {
+  $("#waiters").load(
+    `${window.location.protocol}//${window.location.host}/partials/spinner.html`
+  );
+} else {
+  $("#waiters").load(
+    `${window.location.protocol}//${window.location.host}/amsv2/partials/spinner.html`
+  );
+}
 
 if (localStorage.getItem("token")) loadPage();
 

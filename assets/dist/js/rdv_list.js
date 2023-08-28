@@ -4,7 +4,9 @@ var max = 0;
 var next = ""
 var prev = ""
 function getAllRdv() {
-  $("#waiters").css("display","inline")
+  // $("#waiters").css("display", "inline");
+  // $("#table-content").css("display", "none");
+// alert("hey")
   $.ajax({
     type: "GET",
     url: rdv_add,
@@ -12,6 +14,8 @@ function getAllRdv() {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
+      // $("#waiters").css("display", "none");
+      // $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
       next = response["next"]
@@ -73,6 +77,7 @@ function getAllRdv() {
   });
 }
 $("#next").on("click", function () {
+  
    if(next===null){
     alert("Dernière page");
     return;
@@ -149,6 +154,8 @@ function getNext() {
   }
 }
 function code(url_) {
+  $("#waiters").css("display", "block");
+  $("#table-content").css("display", "none");
   $.ajax({
     type: "GET",
     url: url_,
@@ -156,6 +163,8 @@ function code(url_) {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
+      $("#waiters").css("display", "none");
+      $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10);
       next = response["next"]

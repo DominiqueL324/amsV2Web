@@ -2,9 +2,14 @@ var next = ""
 var prev = ""
 var max = 0;
 function filtreRdv() {
+  
   var i = 1;
   data = {};
   message = "Rendez-vous répondant aux critères suivant; ";
+  $("#result").css("display", "none");
+  $("#waiters").css("display", "block");
+  $("#table-content").css("display", "none");
+  
   if ($("#etat").val() != "0") {
     data["statut"] = $("#etat").val();
     message = message + "statut: " + $("#etat option:selected").text();
@@ -89,6 +94,8 @@ function filtreRdv() {
   ) {
     data["client"] = localStorage.getItem("id_user_logged");
   }
+ 
+
   data["user"] = data["role"] = $.ajax({
     type: "GET",
     url: tri_url,
@@ -97,6 +104,10 @@ function filtreRdv() {
     },
     data: data,
     success: function (response) {
+
+      $("#waiters").css("display", "none");
+      $("#table-content").css("display", "block");
+
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
       next = response["next"]
       prev = response["previous"]	    
@@ -162,6 +173,26 @@ $("#find").on("click", function () {
   cas_rdv = 1
   filtreRdv();
 });
+
+$("#debut").on("change", function (e) {
+  if ($(this).val() && !$("#fin").val()) {
+    $("#fin").attr("min", $(this).val());
+  } else {
+    $("#fin").removeAttr("min");
+  }
+  if (!$(this).val()) {
+    $("#fin").val("");
+  }
+});
+
+$("#fin").on("change", function (e) {
+  if ($(this).val() && !$("#debut").val()) {
+    $("#debut").attr("min", $(this).val());
+  } else {
+    $("#debut").removeAttr("min");
+  }
+});
+
 function getClientF() {
   var content = "";
   $.ajax({

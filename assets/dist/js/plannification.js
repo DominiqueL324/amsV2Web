@@ -647,6 +647,10 @@ $("#goDate").on("click", function () {
 });
 
 function getRdvC(pris_en_charge = 0) {
+
+  $("#waiters").css("display", "block");
+  $("#table-content").css("display", "none");
+
   var data = {};
   if (pris_en_charge == 1) {
     data["en_charge"] = 1;
@@ -661,6 +665,8 @@ function getRdvC(pris_en_charge = 0) {
     },
     data: data,
     success: function (response) {
+      $("#waiters").css("display", "none");
+      $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
       next = response["next"];
