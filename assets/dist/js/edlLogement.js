@@ -10,7 +10,6 @@ function getAllEDLLogement() {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
     success: function (response) {
-      
       $("#waiters").css("display", "none");
       $("#table-content").css("display", "block");
       response["results"].forEach((elt) => {
@@ -59,7 +58,6 @@ function getSingleEdlLogement() {
       "http://195.15.218.172/edlgateway/api/v1/single/edl/logement/?ID=" +
       edlLogementId,
     success: (response) => {
-      
       $("#waiters").css("display", "none");
       $("#form-content").css("display", "block");
 
@@ -68,7 +66,6 @@ function getSingleEdlLogement() {
     error: (response) => {
       $("#waiters").css("display", "none");
       $("#error-loading-data").css("display", "block");
-      
     },
   });
 }
@@ -83,16 +80,13 @@ function loadSignataires() {
       Authorization: localStorage.getItem("token"),
     },
     success: (response) => {
-      
       response["results"].forEach((elt) => {
         $("#nom_du_signatatire").append(`
         <option value="${elt["id"]}">${elt["nom"]}</option>
         `);
       });
     },
-    error: (response) => {
-      
-    },
+    error: (response) => {},
   });
 }
 
@@ -156,22 +150,21 @@ function addEDLLogement() {
   const existsLocataire = lastArray.some((str) => str.trim() === "locataire");
 
   if (!existsLocataire) {
-     $.toaster({
-       priority: "danger",
-       title: "error",
-       message: "Vous devez ajouter un Locataire pour creer un EDL.",
-     });
-     return;
+    $.toaster({
+      priority: "danger",
+      title: "error",
+      message: "Vous devez ajouter un Locataire pour creer un EDL.",
+    });
+    return;
   }
-    if (rdv_edl_list.size < 1) {
-      $.toaster({
-        priority: "danger",
-        title: "error",
-        message: "Au moin 1 rdv est requise pour un EDL...RDV",
-      });
-      return;
-    }
-
+  if (rdv_edl_list.size < 1) {
+    $.toaster({
+      priority: "danger",
+      title: "error",
+      message: "Au moin 1 rdv est requise pour un EDL...RDV",
+    });
+    return;
+  }
 
   data["date_edl"] = $("#edl_realiser_le").val();
   data["heure"] = $("#heure").val();
@@ -185,7 +178,6 @@ function addEDLLogement() {
   data["avancement"] = $("#avancement").val();
   data["created_by"] = localStorage.getItem("id_user_logged");
 
-  
   $.ajax({
     method: "POST",
     url: "http://195.15.218.172/edlgateway/api/v1/planif/edl/add",
@@ -197,26 +189,45 @@ function addEDLLogement() {
       "Access-Control-Allow-Origin": "*",
     },
     data: JSON.stringify(data),
-    success: () => {
+    success: async () => {
       $("#go").html("Enregistrer");
-      $.toaster({
-        priority: "success",
-        title: "success",
-        message: "EDL crée avec succès... Redirection en cours",
+      $.ajax({
+        method: "PUT",
+        url: `http://195.15.218.172/rdv_app/rdv/${localStorage.getItem(
+          "id_cmd_id"
+        )}`,
+        crossDomain: true,
+        dataType: "json",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: JSON.stringify({
+          edl: "1",
+        }),
+        success: () => {
+          $.toaster({
+            priority: "success",
+            title: "success",
+            message: "EDL crée avec succès... Redirection en cours",
+          });
+
+          if (localStorage.getItem("rdv_edl_list"))
+            localStorage.getItem("rdv_edl_list");
+          if (localStorage.getItem("signataire_list"))
+            localStorage.getItem("signataire_list");
+          if (localStorage.getItem("intervenant"))
+            localStorage.getItem("intervenant");
+
+          setInterval(
+            () => window.location.replace("./../../../rdv/index.html"),
+            3000
+          );
+        },
       });
-
-      if (localStorage.getItem("rdv_edl_list")) localStorage.getItem("rdv_edl_list");
-      if (localStorage.getItem("signataire_list"))
-        localStorage.getItem("signataire_list");
-      if (localStorage.getItem("intervenant")) localStorage.getItem("intervenant");
-
-      setInterval(
-        () => window.location.replace("./../edlLogement/index.html"),
-        3000
-      );
     },
     error: (response) => {
-      
       $("#go").html("Enregistrer");
     },
   });

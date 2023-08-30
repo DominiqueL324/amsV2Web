@@ -11,8 +11,8 @@ function filtreRdv() {
   $("#table-content").css("display", "none");
   
   if ($("#etat").val() != "0") {
-    data["statut"] = $("#etat").val();
-    message = message + "statut: " + $("#etat option:selected").text();
+    // data["statut"] = $("#etat").val();
+    // message = message + "statut: " + $("#etat option:selected").text();
   }
 
   if ($("#debut").val() != "") {
@@ -104,13 +104,12 @@ function filtreRdv() {
     },
     data: data,
     success: function (response) {
-
       $("#waiters").css("display", "none");
       $("#table-content").css("display", "block");
 
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
-      next = response["next"]
-      prev = response["previous"]	    
+      next = response["next"];
+      prev = response["previous"];
       $("#contentTableRdv").empty();
       response["results"].forEach((elt) => {
         var formattedDate = new Date(elt["date"]);

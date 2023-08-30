@@ -102,3 +102,7 @@ if (window.location.hostname === "127.0.0.1") {
 if (localStorage.getItem("token")) loadPage();
 
 $("#copyright_year").html(new Date().getFullYear());
+
+$(".info").after(`<center style="color: #fff">${localStorage.getItem("group")}</center>`)
+
+$(".user-panel").css("display", "flex").css("flex-direction", "column");

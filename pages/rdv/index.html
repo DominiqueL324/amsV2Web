@@ -84,7 +84,7 @@
                             <div class="os-content" style="height: 100%; width: 100%">
                                 <div class="user-panel mt-1 pb-1 mb-3 d-flex justify-content-center align-items-center">
                                     <div class="info">
-                                        <a class="d-block text-decoration-underline" href="/pages/profil/index.html"
+                                        <a class="d-block text-decoration-underline" href="../profil/index.html"
                                             id="name_user" style="display: inline;"></a>
                                     </div>
                                 </div>
@@ -372,9 +372,9 @@
                                                         <th>Date</th>
                                                         <th>Societe</th>
                                                         <th>REF lot</th>
-                                                        <th>REF EDL</th>
-                                                        <th>Intervention</th>
-                                                        <th>Bien</th>
+                                                        <th class="text-center">REF EDL</th>
+                                                        <th class="text-center">Intervention</th>
+                                                        <th class="text-center">Bien</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -451,6 +451,7 @@
             onload();
 
             $("#reinitialiser").on("click", function () {
+                $(".alert").css("display", "none");
                 getRdvC(pris_en_charge = 1);
                  onload();
             });

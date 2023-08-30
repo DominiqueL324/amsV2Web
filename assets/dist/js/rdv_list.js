@@ -1,12 +1,12 @@
 var pg = "";
 var k = 0;
 var max = 0;
-var next = ""
-var prev = ""
+var next = "";
+var prev = "";
 function getAllRdv() {
   // $("#waiters").css("display", "inline");
   // $("#table-content").css("display", "none");
-// alert("hey")
+  // alert("hey")
   $.ajax({
     type: "GET",
     url: rdv_add,
@@ -18,8 +18,8 @@ function getAllRdv() {
       // $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
-      next = response["next"]
-      prev = response["previous"]
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableRdv").empty();
       response["results"].forEach((elt) => {
@@ -30,7 +30,7 @@ function getAllRdv() {
         var y = formattedDate.getFullYear();
         var couleur;
         if (parseInt(elt["edl"]) == "1") {
-          couleur = "rgb(241, 67, 67)";
+          couleur = "rgb(124, 199, 48)";
         } else {
           couleur = "rgb(255, 166, 93)";
         }
@@ -70,23 +70,21 @@ function getAllRdv() {
         `);
         i++;
       });
-      $("#waiters").css("display","none")
+      $("#waiters").css("display", "none");
     },
-    error: function (response) {
-    },
+    error: function (response) {},
   });
 }
 $("#next").on("click", function () {
-  
-   if(next===null){
+  if (next === null) {
     alert("Dernière page");
     return;
   }
-  v = next.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
+  v = next.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
   }
   if (k <= max_) {
     k = k + 1;
@@ -103,16 +101,16 @@ $("#next").on("click", function () {
   }
 });
 $("#prev").on("click", function () {
-  if(prev===null){
+  if (prev === null) {
     alert("Dernière page");
     return;
   }
-  v = prev.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
-  }	
+  v = prev.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
+  }
   if (k == 0) {
     alert("Première page");
   }
@@ -135,17 +133,17 @@ function getPrev(url_) {
 }
 
 function getNext() {
-    if(next===null){
+  if (next === null) {
     alert("Dernière page");
     return;
-  } 
-  v = next.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
   }
-	
+  v = next.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
+  }
+
   if (i <= max_) {
     code(url);
   } else {
@@ -167,38 +165,39 @@ function code(url_) {
       $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10);
-      next = response["next"]
-      prev = response["previous"]
+     
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableRdv").empty();
-       response["results"].forEach((elt) => {
-         var formattedDate = new Date(elt["date"]);
-         var d = formattedDate.getDate();
-         var m = formattedDate.getMonth();
-         m += 1; // JavaScript months are 0-11
-         var y = formattedDate.getFullYear();
-         var couleur;
-         if (parseInt(elt["edl"]) == "1") {
-           couleur = "rgb(241, 67, 67)";
-         } else {
-           couleur = "rgb(255, 166, 93)";
-         }
+      response["results"].forEach((elt) => {
+        var formattedDate = new Date(elt["date"]);
+        var d = formattedDate.getDate();
+        var m = formattedDate.getMonth();
+        m += 1; // JavaScript months are 0-11
+        var y = formattedDate.getFullYear();
+        var couleur;
+        if (parseInt(elt["edl"]) == "1") {
+          couleur = "rgb(124, 199, 48)";
+        } else {
+          couleur = "rgb(255, 166, 93)";
+        }
 
-         let addEdlOption;
+        let addEdlOption;
 
-         if (elt["edl"] !== "1") {
-           addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+        if (elt["edl"] !== "1") {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
                 <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
               </a>`;
-         }
+        }
 
-         $("#contentTableRdv").append(`
+        $("#contentTableRdv").append(`
           <tr style="background-color: ${couleur}; color:white;">
             <td>${i}</td>
             <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
-           2,
-           "0"
-         )} / ${y}</td>
+          2,
+          "0"
+        )} / ${y}</td>
             <td>${elt["client"]["societe"]}</td>
             <td>${elt["ref_lot"] || ""}</td>
             <td>${elt["ref_rdv_edl"] || ""}</td>
@@ -217,11 +216,10 @@ function code(url_) {
             </td>
           </tr>
         `);
-         i++;
-       });
+        i++;
+      });
     },
-    error: function (response) {
-    },
+    error: function (response) {},
   });
 }
 function goWhereEdit(id) {

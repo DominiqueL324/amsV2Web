@@ -681,7 +681,7 @@ function getRdvC(pris_en_charge = 0) {
         var y = formattedDate.getFullYear();
         var couleur;
         if (parseInt(elt["edl"]) == "1") {
-          couleur = "rgb(241, 67, 67)";
+          couleur = "rgb(124, 199, 48)";
         } else {
           couleur = "rgb(255, 166, 93)";
         }
