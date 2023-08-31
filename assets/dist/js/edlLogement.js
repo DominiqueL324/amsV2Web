@@ -233,6 +233,8 @@ function addEDLLogement() {
   });
 }
 
+
+
 function goWhereEdit(id) {
   localStorage.getItem("id_edl_logement_edit", id);
   window.location.replace("./../edl/edlLogement/modifier.html");

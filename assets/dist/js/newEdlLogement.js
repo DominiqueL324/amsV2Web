@@ -369,26 +369,42 @@ function addEDLLogement() {
     data: JSON.stringify(data),
     success: () => {
       $("#go").html("Enregistrer");
-      $.toaster({
-        priority: "success",
-        title: "success",
-        message: "EDL crée avec succès... Redirection en cours",
-      });
 
-      if (localStorage.getItem("rdv_edl_list"))
-        localStorage.removeItem("rdv_edl_list");
-      if (localStorage.getItem("signataire_list"))
-        localStorage.removeItem("signataire_list");
-      if (localStorage.getItem("intervenant"))
-        localStorage.removeItem("intervenant");
+       $.ajax({
+         method: "PUT",
+         url: `http://195.15.218.172/rdv_app/rdv/${localStorage.getItem(
+           "id_cmd_id"
+         )}`,
+         crossDomain: true,
+         dataType: "json",
+         headers: {
+           Authorization: "Bearer " + localStorage.getItem("token"),
+           "content-Type": "application/json",
+           "Access-Control-Allow-Origin": "*",
+         },
+         data: JSON.stringify({
+           edl: "1",
+         }),
+         success: () => {
+           $.toaster({
+             priority: "success",
+             title: "success",
+             message: "EDL crée avec succès... Redirection en cours",
+           });
 
-      setInterval(
-        () =>
-          window.location.replace(
-            `${window.location.host}/pages/rdv/index.html`
-          ),
-        3000
-      );
+           if (localStorage.getItem("rdv_edl_list"))
+             localStorage.getItem("rdv_edl_list");
+           if (localStorage.getItem("signataire_list"))
+             localStorage.getItem("signataire_list");
+           if (localStorage.getItem("intervenant"))
+             localStorage.getItem("intervenant");
+
+           setInterval(
+             () => window.location.replace("./../../rdv/index.html"),
+             3000
+           );
+         },
+       });
     },
     error: (response) => {
       $("#go").html("Enregistrer");
