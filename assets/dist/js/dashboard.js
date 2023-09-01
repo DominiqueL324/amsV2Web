@@ -30,15 +30,20 @@ function configCal() {
     },
     eventMouseEnter: function (info) {
       tooltip =
-        '<div class="tooltiptopicevent" style="opacity:1;width:auto;height:auto;background:#feb811;position:absolute;z-index:10001;padding:10px 10px 10px 10px ;  line-height: 200%;">' +
-        "RDV: " +
-        ": " +
-        info.event.title +
-        "</br>" +
-        "Date: " +
-        ": " +
-        info.event.start +
-        "</div>";
+        `<div class="tooltiptopicevent" 
+          style="opacity:1;
+                  width:auto;
+                  height:auto;
+                  background:#feb811;
+                  position:absolute;
+                  bottom: 0rem;
+                  z-index:10001;
+                  padding:10px 10px 10px 10px; 
+                  line-height: 200%;">
+        RDV: ${info.event.title}
+        </br>
+        Date: ${info.event.start}
+        </div>`;
 
       $("body").append(tooltip);
       $(this)
@@ -48,7 +53,7 @@ function configCal() {
           $(".tooltiptopicevent").fadeTo("10", 1.9);
         })
         .mousemove(function (e) {
-          $(".tooltiptopicevent").css("top", e.pageY + 10);
+          $(".tooltiptopicevent").css("top", e.pageY - 100);
           $(".tooltiptopicevent").css("left", e.pageX + 20);
         });
     },
