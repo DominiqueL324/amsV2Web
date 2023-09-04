@@ -177,6 +177,7 @@ function addEDLLogement() {
   data["signataires"] = Object.fromEntries(rdv_edl_signataire);
   data["avancement"] = $("#avancement").val();
   data["created_by"] = localStorage.getItem("id_user_logged");
+  data["id_cmd_id"] = localStorage.getItem('id_cmd_id');
 
   $.ajax({
     method: "POST",
@@ -191,41 +192,23 @@ function addEDLLogement() {
     data: JSON.stringify(data),
     success: async () => {
       $("#go").html("Enregistrer");
-      $.ajax({
-        method: "PUT",
-        url: `http://195.15.218.172/rdv_app/rdv/${localStorage.getItem(
-          "id_cmd_id"
-        )}`,
-        crossDomain: true,
-        dataType: "json",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        data: JSON.stringify({
-          edl: "1",
-        }),
-        success: () => {
-          $.toaster({
-            priority: "success",
-            title: "success",
-            message: "EDL crée avec succès... Redirection en cours",
-          });
-
-          if (localStorage.getItem("rdv_edl_list"))
-            localStorage.getItem("rdv_edl_list");
-          if (localStorage.getItem("signataire_list"))
-            localStorage.getItem("signataire_list");
-          if (localStorage.getItem("intervenant"))
-            localStorage.getItem("intervenant");
-
-          setInterval(
-            () => window.location.replace("./../../../rdv/index.html"),
-            3000
-          );
-        },
+      $.toaster({
+        priority: "success",
+        title: "success",
+        message: "EDL crée avec succès... Redirection en cours",
       });
+
+      if (localStorage.getItem("rdv_edl_list"))
+        localStorage.getItem("rdv_edl_list");
+      if (localStorage.getItem("signataire_list"))
+        localStorage.getItem("signataire_list");
+      if (localStorage.getItem("intervenant"))
+        localStorage.getItem("intervenant");
+
+      setInterval(
+        () => window.location.replace("./../../../rdv/index.html"),
+        3000
+      );
     },
     error: (response) => {
       $("#go").html("Enregistrer");
