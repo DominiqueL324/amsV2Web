@@ -393,7 +393,7 @@ function addEDLLogement() {
         localStorage.getItem("intervenant");
 
       setInterval(
-        // () => window.location.replace("./../../rdv/index.html"),
+        () => window.location.replace("./../../rdv/index.html"),
         3000
       );
     },
