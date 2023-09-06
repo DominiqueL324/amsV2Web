@@ -647,7 +647,6 @@ $("#goDate").on("click", function () {
 });
 
 function getRdvC(pris_en_charge = 0) {
-
   $("#waiters").css("display", "block");
   $("#table-content").css("display", "none");
 
@@ -682,18 +681,25 @@ function getRdvC(pris_en_charge = 0) {
         var couleur;
         if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(124, 199, 48)";
+        } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          couleur = "red";
         } else {
-          couleur = "rgb(255, 166, 93)";
+           couleur = "rgb(255, 166, 93)";
         }
 
         let addEdlOption;
 
-        if (elt['edl'] !== "1") {
-addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+        if (elt["edl"] !== "1" && !!elt["agent_constat"]) {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")' style="text-align: center;">
                 <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
-              </a>`
+              </a>`;
         }
-        
+
+        if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          addEdlOption = `<a onclick="alert('Ce RDV n\\'a pas d\\'agent constat.')" style="text-align: center;">
+                <i class="fa fa-exclamation" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
+        }
 
         $("#contentTableRdv").append(`
           <tr style="background-color: ${couleur}; color:white;">
@@ -716,7 +722,7 @@ addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
               </span>
             </td>
             <td>
-              ${addEdlOption || ''}
+              ${addEdlOption || ""}
             </td>
           </tr>
         `);

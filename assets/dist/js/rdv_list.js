@@ -29,17 +29,26 @@ function getAllRdv() {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var couleur;
+
         if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(124, 199, 48)";
+        } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          couleur = "red";
         } else {
           couleur = "rgb(255, 166, 93)";
         }
 
         let addEdlOption;
 
-        if (elt["edl"] !== "1") {
-          addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+        if (elt["edl"] !== "1" && !!elt["agent_constat"]) {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")' style="text-align: center;">
                 <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
+        }
+
+        if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          addEdlOption = `<a onclick="alert('Ce RDV n\\'a pas d\\'agent constat.')" style="text-align: center;">
+                <i class="fa fa-exclamation" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
               </a>`;
         }
 
@@ -165,7 +174,7 @@ function code(url_) {
       $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10);
-     
+
       next = response["next"];
       prev = response["previous"];
       $("#total").text(max_);
@@ -179,15 +188,23 @@ function code(url_) {
         var couleur;
         if (parseInt(elt["edl"]) == "1") {
           couleur = "rgb(124, 199, 48)";
+        } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          couleur = "red";
         } else {
           couleur = "rgb(255, 166, 93)";
         }
 
         let addEdlOption;
 
-        if (elt["edl"] !== "1") {
-          addEdlOption = `<a onclick='addEdl("${elt["id"]}")'>
+        if (elt["edl"] !== "1" && !!elt["agent_constat"]) {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")' style="text-align: center;">
                 <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
+        }
+
+        if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          addEdlOption = `<a onclick="alert('Ce RDV n\\'a pas d\\'agent constat.')" style="text-align: center;">
+                <i class="fa fa-exclamation" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
               </a>`;
         }
 
