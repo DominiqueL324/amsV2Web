@@ -1,10 +1,12 @@
 var pg = "";
 var k = 0;
 var max = 0;
-var next = ""
-var prev = ""
+var next = "";
+var prev = "";
 function getAllRdv() {
-  $("#waiters").css("display","inline")
+  // $("#waiters").css("display", "inline");
+  // $("#table-content").css("display", "none");
+  // alert("hey")
   $.ajax({
     type: "GET",
     url: rdv_add,
@@ -12,10 +14,12 @@ function getAllRdv() {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
+      // $("#waiters").css("display", "none");
+      // $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
-      next = response["next"]
-      prev = response["previous"]
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableRdv").empty();
       response["results"].forEach((elt) => {
@@ -25,79 +29,71 @@ function getAllRdv() {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var couleur;
-        if (parseInt(elt["statut"]) == 1) {
-          couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
+
+        if (parseInt(elt["edl"]) == "1") {
+          couleur = "rgb(124, 199, 48)";
+        } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          couleur = "red";
+        } else {
           couleur = "rgb(255, 166, 93)";
         }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
-        }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
+
+        let addEdlOption;
+
+        if (elt["edl"] !== "1" && !!elt["agent_constat"]) {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")' style="text-align: center;">
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
         }
 
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td>\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td>\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a  onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="fa fa-calendar" aria-hidden="true" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
+        if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          addEdlOption = `<a onclick="alert('Ce RDV n\\'a pas d\\'agent constat.')" style="text-align: center;">
+                <i class="fa fa-exclamation" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
+        }
+
+        $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+          2,
+          "0"
+        )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ""}
+            </td>
+          </tr>
+        `);
         i++;
       });
-      $("#waiters").css("display","none")
+      $("#waiters").css("display", "none");
     },
-    error: function (response) {
-    },
+    error: function (response) {},
   });
 }
 $("#next").on("click", function () {
-   if(next===null){
+  if (next === null) {
     alert("Dernière page");
     return;
   }
-  v = next.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
+  v = next.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
   }
   if (k <= max_) {
     k = k + 1;
@@ -114,16 +110,16 @@ $("#next").on("click", function () {
   }
 });
 $("#prev").on("click", function () {
-  if(prev===null){
+  if (prev === null) {
     alert("Dernière page");
     return;
   }
-  v = prev.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
-  }	
+  v = prev.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
+  }
   if (k == 0) {
     alert("Première page");
   }
@@ -146,17 +142,17 @@ function getPrev(url_) {
 }
 
 function getNext() {
-    if(next===null){
+  if (next === null) {
     alert("Dernière page");
     return;
-  } 
-  v = next.split("?")[1]
-  if(cas_rdv == 1){
-    url = tri_url + "?"+v
-  }else{
-    url = rdv_add + "?"+v
   }
-	
+  v = next.split("?")[1];
+  if (cas_rdv == 1) {
+    url = tri_url + "?" + v;
+  } else {
+    url = rdv_add + "?" + v;
+  }
+
   if (i <= max_) {
     code(url);
   } else {
@@ -165,6 +161,8 @@ function getNext() {
   }
 }
 function code(url_) {
+  $("#waiters").css("display", "block");
+  $("#table-content").css("display", "none");
   $.ajax({
     type: "GET",
     url: url_,
@@ -172,10 +170,13 @@ function code(url_) {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
+      $("#waiters").css("display", "none");
+      $("#table-content").css("display", "block");
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10);
-      next = response["next"]
-      prev = response["previous"]
+
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableRdv").empty();
       response["results"].forEach((elt) => {
@@ -184,67 +185,58 @@ function code(url_) {
         var m = formattedDate.getMonth();
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
-
         var couleur;
-        if (parseInt(elt["statut"]) == 1) {
-          couleur = "rgb(241, 67, 67)";
-        }
-        if (parseInt(elt["statut"]) == 2) {
+        if (parseInt(elt["edl"]) == "1") {
+          couleur = "rgb(124, 199, 48)";
+        } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          couleur = "red";
+        } else {
           couleur = "rgb(255, 166, 93)";
         }
-        if (parseInt(elt["statut"]) == 3) {
-          couleur = "rgb(93, 182, 255)";
+
+        let addEdlOption;
+
+        if (elt["edl"] !== "1" && !!elt["agent_constat"]) {
+          addEdlOption = `<a onclick='addEdl("${elt["id"]}")' style="text-align: center;">
+                <i class="fa fa-plus" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
         }
-        if (parseInt(elt["statut"]) == 4) {
-          couleur = "rgb(93, 255, 101)";
+
+        if (elt["edl"] !== "1" && !elt["agent_constat"]) {
+          addEdlOption = `<a onclick="alert('Ce RDV n\\'a pas d\\'agent constat.')" style="text-align: center;">
+                <i class="fa fa-exclamation" aria-hidden="true" style="color: rgb(136, 102, 119)"></i>
+              </a>`;
         }
-        $("#contentTableRdv").append(
-          '<tr style="background-color:' +
-            couleur +
-            '; color:white;">\
-                        <td>' +
-            i +
-            "</td>\
-                        <td>" +
-            String(d).padStart(2, "0") +
-            "/" +
-            String(m).padStart(2, "0") +
-            "/" +
-            y +
-            "</td>\
-                        <td>" +
-            elt["client"]["societe"] +
-            "</td>\
-                        <td>" +
-            elt["ref_lot"] +
-            "</td>\
-                        <td>" +
-            elt["ref_rdv_edl"] +
-            '</td>\
-                        <td>\
-                            <span class="badge badge-success">' +
-            elt["intervention"]["type"] +
-            '</span>\
-                        </td>\
-                        <td>\
-                            <span class="badge badge-primary">' +
-            elt["propriete"]["type_propriete"]["type"] +
-            "</span>\
-                        </td>\
-                        <td>\
-                            <a onclick='goWhereEdit(" +
-            elt["id"] +
-            ')\' ><i class="bi bi-pencil-square"style="color: rgb(0, 0, 0)"></i></a>&nbsp;<a onclick=\'goWhereEdit1(' +
-            elt["id"] +
-            ')\'><i class="bi bi-eye" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
-        );
+
+        $("#contentTableRdv").append(`
+          <tr style="background-color: ${couleur}; color:white;">
+            <td>${i}</td>
+            <td>${String(d).padStart(2, "0")} / ${String(m).padStart(
+          2,
+          "0"
+        )} / ${y}</td>
+            <td>${elt["client"]["societe"]}</td>
+            <td>${elt["ref_lot"] || ""}</td>
+            <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td class="text-center">
+              <span class="badge badge-success">
+                ${elt["intervention"]["type"]} 
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge badge-primary">
+                ${elt["propriete"]["type_propriete"]["type"]} 
+              </span>
+            </td>
+            <td>
+              ${addEdlOption || ""}
+            </td>
+          </tr>
+        `);
         i++;
       });
     },
-    error: function (response) {
-    },
+    error: function (response) {},
   });
 }
 function goWhereEdit(id) {

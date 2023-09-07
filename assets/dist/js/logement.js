@@ -427,14 +427,23 @@ function fetchData(id) {
       let cles = response["results"]["cles"];
       let compteurs = response["results"]["compteurs"];
       let pieces = response["results"]["pieces"];
+      
       let i = 1;
+
+      console.log(pieces, compteurs, cles)
 
       $("#pieces_").html("");
       $("#contentTableCle").html("");
       $("#contentTableCompteur").html("");
 
-      Object.values(cles).forEach((value, key) => {
-        $("#contentTableCle").append(`
+      if (Object.keys(pieces).length === 0) {
+        alert("Ce type de logement n'a aucune pièce enregistré.");
+        return;
+      }
+        // console.log(response)
+
+        Object.values(cles).forEach((value, key) => {
+          $("#contentTableCle").append(`
           <tr key="${key}">
             <td>${i}</td>
             <td>${value.nom}</td>
@@ -442,8 +451,8 @@ function fetchData(id) {
             <td></td>
           </tr>
         `);
-        i++;
-      });
+          i++;
+        });
 
       let j = 1;
       Object.values(compteurs).forEach((value, key) => {
@@ -459,13 +468,36 @@ function fetchData(id) {
       });
 
       Object.values(pieces).forEach((value, key) => {
-        let rubriques = JSON.stringify(value["rubriques"]);
+        let rubriques = JSON.stringify(value["rubriques"]).replace(
+          /"/g,
+          "&quot;"
+        );
+        rubriques = rubriques.replace(/'/g, "&#39;");
         let className;
         className = key === 0 ? "active-piece p-piece" : "p-piece";
-        $("#pieces_").append(
-          `<p key="${key}" class="${className}" onclick='getRubriques(${rubriques})' style="cursor: pointer; cursor: pointer;
+        
+        if (rubriques.length > 2) {
+           $("#pieces_").append(
+             `<p key="${key}" class="${className}" onclick='getRubriques(${(
+               rubriques
+             ).replace(
+               /"/g,
+               "&quot;"
+             )})' style="cursor: pointer; cursor: pointer;
           padding: 10px 7px;">${value.nom}</p>`
-        );
+           );
+        } else {
+          $("#pieces_").append(`<p
+            key="${key}"
+            class="${className}"
+            onclick="alert('Aucune rubrque enregistrer.')"
+            style="cursor: pointer; cursor: pointer;
+          padding: 10px 7px;"
+          >
+            ${value.nom}
+          </p>`);
+        }
+       
       });
       $("#rubriques_").html("");
       Object.values(Object.values(pieces)[0]["rubriques"]).forEach(
@@ -495,6 +527,7 @@ function fetchData(id) {
 
 const getRubriques = (rubriques) => {
   $("#rubriques_").html("");
+  console.log(rubriques);
   Object.values(rubriques).forEach((value, key) => {
     $("#rubriques_").append(`
       <p key="${key}" style="cursor: pointer; cursor: pointer;

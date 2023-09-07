@@ -250,11 +250,11 @@
 <script>
     $(document).ready(() => {
 
-        let completeName = $.cookie('first_name').charAt(0).toUpperCase() + $.cookie('first_name').slice(1).toLowerCase() + " " + $.cookie('name');
+        let completeName = localStorage.getItem('first_name').charAt(0).toUpperCase() + localStorage.getItem('first_name').slice(1).toLowerCase() + " " + localStorage.getItem('name');
 
         $("#name_user").html(`${completeName}`).css("text-decoration", "none");
 
-        let usrType = `${$.cookie("group").split(" ").join("").toLowerCase()}`;
+        let usrType = `${localStorage.getItem("group").split(" ").join("").toLowerCase()}`;
 
         function protect(usrType) {
            

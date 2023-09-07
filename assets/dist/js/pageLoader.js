@@ -1,7 +1,8 @@
 const loadPage = () => {
   // put code here
 
-  var usrTyp = `${localStorage?.getItem("group")
+  var usrTyp = `${localStorage
+    ?.getItem("group")
     .split(" ")
     .join("")
     .toLowerCase()}`;
@@ -31,16 +32,8 @@ const loadPage = () => {
   protect(usrTyp);
 };
 
-function resetUserData() {
-  var cookies = $.cookie();
-  for (var cookie in cookies) {
-    $.cookie(cookie);
-  }
-}
-
 function logout() {
   if (!localStorage.getItem("token")) {
-    // alert('no cookie found')
     window.location.replace(
       `${window.location.protocol}//${window.location.host}/amsv2/login.html`
     );
@@ -74,18 +67,15 @@ function logout() {
     },
     success: function (response) {
       //resetUserData();
-      // $.cookie("token", null);
+
       localStorage.removeItem("token");
-      // alert('successfully and removed cookie');
 
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
       );
     },
     error: function (response) {
-      resetUserData();
-      // alert('not successfully and removed cookie');
-      // $.cookie("token", null);
+      // resetUserData();
       localStorage.removeItem("token");
       window.location.replace(
         `${window.location.protocol}//${window.location.host}/amsv2/login.html`
@@ -99,10 +89,20 @@ $("#logout").on("click", (e) => {
   logout();
 });
 
-$("#waiters").load(
-  `${window.location.protocol}//${window.location.host}/amsv2/partials/spinner.html`
-);
+if (window.location.hostname === "127.0.0.1") {
+  $("#waiters").load(
+    `${window.location.protocol}//${window.location.host}/partials/spinner.html`
+  );
+} else {
+  $("#waiters").load(
+    `${window.location.protocol}//${window.location.host}/amsv2/partials/spinner.html`
+  );
+}
 
 if (localStorage.getItem("token")) loadPage();
 
 $("#copyright_year").html(new Date().getFullYear());
+
+$(".info").after(`<center style="color: #fff">${localStorage.getItem("group")}</center>`)
+
+$(".user-panel").css("display", "flex").css("flex-direction", "column");

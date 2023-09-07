@@ -58,8 +58,8 @@
                                 class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="window.history.go(-1);" title="Page précedente"
-                            role="button" style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
+                        <a class="nav-link" onclick="window.history.go(-1);" title="Page précedente" role="button"
+                            style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -98,6 +98,13 @@
                                             <a class="nav-link" href="../../../index.html">
                                                 <i class="bi bi-speedometer2"></i>
                                                 <p>Tableau de Bord</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item agentsecteur administrateur agentconstat">
+                                            <a class="nav-link" href="../../rdv/index.html">
+                                                <i class="bi bi-calendar-day-fill"></i>
+                                                <p>RDV</p>
                                             </a>
                                         </li>
 
@@ -412,6 +419,9 @@
 
             let selectedRubriquesId = [];
 
+            // new logic
+            let selectedRubriques = Object.values(piece.rubriques);
+
             $('#rubriques').select2({
                 data: rubriqueElement
             });
@@ -420,42 +430,35 @@
                 return obj.id;
             })).trigger('change');
 
+            console.log(Object.values(piece.rubriques));
+
             $('#rubriques').on('select2:select', function (e) {
                 var optionValue = e.params.data.id;
-                
-                if (selectedRubriquesId.indexOf(optionValue) === -1) {
-                    selectedRubriquesId.push(optionValue);
+
+                let selectedRubrique = resultsR.filter(r => r.id === optionValue);
+
+                if (selectedRubriques.filter(r => r.id === selectedRubrique.id).length === 0) {
+                    selectedRubriques.push(...selectedRubrique);
                 }
-                // $('#test').val(data.text);
             });
 
             $('#rubriques').on('select2:unselect', function (e) {
                 var optionValue = e.params.data.id;
-                
-                // Remove the deselected option from the array
-                var index = selectedRubriquesId.indexOf(optionValue);
+
+                let index = selectedRubriques.findIndex(r => r.id === optionValue);
                 if (index !== -1) {
-                    selectedRubriquesId.splice(index, 1);
+                    selectedRubriques.splice(index, 1);
                 }
             });
 
             $("#go").click(function (e) {
                 e.preventDefault();
-                selectedRubriques = selectedRubriquesId.map(
-                    selectedRubriqueId => resultsR.filter(r => r.id === selectedRubriqueId)
-                );
+
                 let newSelectedRubriquesObj = new Map();
-                selectedRubriques.map(sr => {
-                    let newSelectedRubriqueObj = {};
-                    newSelectedRubriqueObj["nom"] = sr[0].nom;
-                    newSelectedRubriqueObj["description"] = sr[0].description;
-                    newSelectedRubriqueObj["id"] = sr[0].id
-
-                    newSelectedRubriquesObj.set(`rubrique_${newSelectedRubriquesObj.size + 1}`, newSelectedRubriqueObj);
-
-                    return;
+                selectedRubriques.map((r, idx) => {
+                    let size = idx + 1;
+                    newSelectedRubriquesObj.set(`rubrique_${size}`, r);
                 });
-
 
                 editPiece(Object.fromEntries(newSelectedRubriquesObj));
 

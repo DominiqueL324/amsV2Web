@@ -13,13 +13,13 @@ $("#telephone_locataire").keyup(function () {
 });
 function getClient(cas = 0, val_ = 1) {
   $.cookie("client_to_get",cas)
-  if ($.cookie("group") == "Salarie" && $.cookie("id_client_sal") == 0) {
+  if (localStorage.getItem("group") == "Salarie" && $.cookie("id_client_sal") == 0) {
     alert("Désolé vous n'êtes attaché à aucun client vous ne pouvez pas prendre de commande\nveuillez contacter un administrateur");
     window.location.replace("dashboard.html");
     return;
   }
 
-  if ($.cookie("group") == "Administrateur" || $.cookie("group") == "Agent secteur" || $.cookie("group") == "Agent constat" ||$.cookie("group") == "Audit planneur") {
+  if (localStorage.getItem("group") == "Administrateur" || localStorage.getItem("group") == "Agent secteur" || localStorage.getItem("group") == "Agent constat" ||localStorage.getItem("group") == "Audit planneur") {
     $.ajax({
       type: "GET",
       url: client_add_not_pg,
@@ -80,8 +80,8 @@ function getClient(cas = 0, val_ = 1) {
       },
     });
   }
-  if ($.cookie("group") == "Client pro" || $.cookie("group") == "client particulier") {
-    content = $.cookie("name") + " " + $.cookie("first_name");
+  if (localStorage.getItem("group") == "Client pro" || localStorage.getItem("group") == "client particulier") {
+    content = localStorage.getItem("name") + " " + localStorage.getItem("first_name");
     $("#client").empty();
     $("#client").append(
       "<label for='exampleInputEmail1'>Client</label>\
@@ -91,7 +91,7 @@ function getClient(cas = 0, val_ = 1) {
     );
     getPasseur((cas = 0));
   }
-  if($.cookie("group") == "Salarie"){
+  if(localStorage.getItem("group") == "Salarie"){
     content = $.cookie("nom_client_sal") + " " + $.cookie("prenom_client_sal");
     $("#client").empty();
     $("#client").append(
@@ -113,11 +113,11 @@ function getPasseur(cas = 0, add = 0,client=0) {
   }
   
 
-  if ($.cookie("group") == "Client pro" || $.cookie("group") == "Client particulier") {
+  if (localStorage.getItem("group") == "Client pro" || localStorage.getItem("group") == "Client particulier") {
       id_client = $.cookie("id_logged_user_user");
   }
-  if ($.cookie("group") == "Salarie") {
-    content = $.cookie("name") + " " + $.cookie("first_name");
+  if (localStorage.getItem("group") == "Salarie") {
+    content = localStorage.getItem("name") + " " + localStorage.getItem("first_name");
     $("#passeur").empty();
     $("#passeur").append(
       "<label for='exampleInputEmail1'>Passeur</label>\
@@ -190,7 +190,7 @@ function getPasseur(cas = 0, add = 0,client=0) {
   }
 }
 function getAgent(cas = 1, val_ = 0,agent="") {
-  if ($.cookie("group") == "Administrateur" ||$.cookie("group") == "Audit planneur") {
+  if (localStorage.getItem("group") == "Administrateur" ||localStorage.getItem("group") == "Audit planneur") {
     $.ajax({
       type: "GET",
       url: asurl_not_paginated,
@@ -245,8 +245,8 @@ function getAgent(cas = 1, val_ = 0,agent="") {
       },
     });
   }
-  if ($.cookie("group") == "Agent secteur") {
-    content = $.cookie("name") + " " + $.cookie("first_name");
+  if (localStorage.getItem("group") == "Agent secteur") {
+    content = localStorage.getItem("name") + " " + localStorage.getItem("first_name");
     $("#agent").empty();
     $("#agent").append(
       "<label for='exampleInputEmail1'>Agent de secteur</label>\
@@ -256,7 +256,7 @@ function getAgent(cas = 1, val_ = 0,agent="") {
     );
   }
 
-  if ($.cookie("group") == "Agent constat") {
+  if (localStorage.getItem("group") == "Agent constat") {
     content = $.cookie("nom_agent");
     $("#agent").empty();
     $("#agent").append(
@@ -266,7 +266,7 @@ function getAgent(cas = 1, val_ = 0,agent="") {
         "/>"
     );
   }
-  if ($.cookie("group") == "Client pro" || $.cookie("group") == "Client particulier") {
+  if (localStorage.getItem("group") == "Client pro" || localStorage.getItem("group") == "Client particulier") {
     content = $.cookie("nom_agent");
     $("#agent").empty();
     $("#agent").append(
@@ -276,7 +276,7 @@ function getAgent(cas = 1, val_ = 0,agent="") {
         "/>"
     );
   }
-  if($.cookie("group") == "Salarie"){
+  if(localStorage.getItem("group") == "Salarie"){
     $("#agent").empty();
     $("#agent").append(
       "<label for='exampleInputEmail1'>Agent secteur</label>\
@@ -381,32 +381,32 @@ function addRdv() {
   data["ref_edl"] = $("#ref_edl").val();
   data["ancien_locataire"] = $("#adresse_ancien_locataire").val();
   data["intervention"] = $("#intervention_val").val();
-  if ($.cookie("group") == "Agent secteur" ||$.cookie("group") == "Agent constat" ||$.cookie("group") == "Audit planneur" ||$.cookie("group") == "Administrateur") {
+  if (localStorage.getItem("group") == "Agent secteur" ||localStorage.getItem("group") == "Agent constat" ||localStorage.getItem("group") == "Audit planneur" ||localStorage.getItem("group") == "Administrateur") {
     data["client"] = $("#client_val").val();
   }
   data["statut"] = 1;
   data["date"] = $("#date").val();
-  if ($.cookie("group") == "Client pro" || $.cookie("group") == "Client particulier" || $.cookie("group") == "Agent secteur" || $.cookie("group") == "Agent constat" || $.cookie("group") == "Audit planneur" || $.cookie("group") == "Administrateur") {
+  if (localStorage.getItem("group") == "Client pro" || localStorage.getItem("group") == "Client particulier" || localStorage.getItem("group") == "Agent secteur" || localStorage.getItem("group") == "Agent constat" || localStorage.getItem("group") == "Audit planneur" || localStorage.getItem("group") == "Administrateur") {
     if (!$("#passeur_val").val() || $("#passeur_val").val() == "0") {
     } else {
       data["passeur"] = $("#passeur_val").val();
     }
   }
-  if ($.cookie("group") == "Agent secteur") {
+  if (localStorage.getItem("group") == "Agent secteur") {
     data["agent"] = $.cookie("id_logged_user_user");
   }
-  if ($.cookie("group") == "Administrateur") {
+  if (localStorage.getItem("group") == "Administrateur") {
     data["agent"] = $("#agent_val").val();
   }
-  if ($.cookie("group") == "Audit planneur") {
+  if (localStorage.getItem("group") == "Audit planneur") {
     data["agent"] = $("#agent_val").val();
     data['audit_planneur'] = $.cookie("id_logged_user_user");
   }
 
   if (
-    $.cookie("group") == "Client pro" ||
-    $.cookie("group") == "Client particulier" ||
-    $.cookie("group") == "Salarie"
+    localStorage.getItem("group") == "Client pro" ||
+    localStorage.getItem("group") == "Client particulier" ||
+    localStorage.getItem("group") == "Salarie"
   ) {
     data["agent"] = $.cookie("id_user_agent");
   }
@@ -416,15 +416,15 @@ function addRdv() {
   data["list_documents"] = $("#list_documents").val();
   data["info_diverses"] = $("#info_diverses").val();
 
-  if ($.cookie("group") == "Client pro" || $.cookie("group") == "Client particulier") {
+  if (localStorage.getItem("group") == "Client pro" || localStorage.getItem("group") == "Client particulier") {
     data["client"] = $.cookie("id_logged_user_user");
   }
-  if ($.cookie("group") == "Agent constat"){
+  if (localStorage.getItem("group") == "Agent constat"){
       data['agent_constat'] = $.cookie('id_logged_user_user')
       data["agent"] = $.cookie("id_user_agent")
   }
 
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     if ($.cookie("id_client_sal") == 0) {
       alert(
         "Désolé vous n'êtes attaché à aucun client vous ne pouvez pas prendre de commande\nveuillez contacter un administrateur"
@@ -581,7 +581,7 @@ function getRdvToEdit() {
         });
       }
       $("#statut").val(parseInt(response[0]["statut"]).toString()).change();
-      if ($.cookie("group") == "Client pro") {
+      if (localStorage.getItem("group") == "Client pro") {
         $("#users_add").empty();
         $("#users_add").append(
           '<label for="exampleInputEmail1">Role</label>\
@@ -593,9 +593,9 @@ function getRdvToEdit() {
         $("#param_link").css("display", "none");
       }
       if (
-        $.cookie("group") == "Client pro" ||
-        $.cookie("group") == "Client particulier" ||
-        $.cookie("group") == "Salarie"
+        localStorage.getItem("group") == "Client pro" ||
+        localStorage.getItem("group") == "Client particulier" ||
+        localStorage.getItem("group") == "Salarie"
       ) {
         $("#statut").prop("disabled", true);
         if (parseInt(response[0]["statut"]) != 1) {
@@ -666,22 +666,22 @@ function editRdv() {
   data["ancien_locataire"] = $("#adresse_ancien_locataire").val();
   data["intervention"] = $("#intervention_val").val();
   if (
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur" ||
-    $.cookie("group") == "Administrateur"
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur" ||
+    localStorage.getItem("group") == "Administrateur"
   ) {
     data["client"] = $("#client_val").val();
   }
   //data["statut"] =1
   data["date"] = $("#date").val();
   if (
-    $.cookie("group") == "Client pro" ||
-    $.cookie("group") == "Client particulier" ||
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur" ||
-    $.cookie("group") == "Administrateur"
+    localStorage.getItem("group") == "Client pro" ||
+    localStorage.getItem("group") == "Client particulier" ||
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur" ||
+    localStorage.getItem("group") == "Administrateur"
   ) {
     if (!$("#passeur_val").val() || $("#passeur_val").val() == "0") {
     } else {
@@ -689,19 +689,19 @@ function editRdv() {
     }
   }
   if (
-    $.cookie("group") == "Agent secteur" ||
-    $.cookie("group") == "Agent constat" ||
-    $.cookie("group") == "Audit planneur"
+    localStorage.getItem("group") == "Agent secteur" ||
+    localStorage.getItem("group") == "Agent constat" ||
+    localStorage.getItem("group") == "Audit planneur"
   ) {
-    data["agent"] = $.cookie("id_user_logged");
+    data["agent"] = localStorage.getItem("id_user_logged");
   }
-  if ($.cookie("group") == "Administrateur") {
+  if (localStorage.getItem("group") == "Administrateur") {
     data["agent"] = $("#agent_val").val();
   }
   if (
-    $.cookie("group") == "Client pro" ||
-    $.cookie("group") == "Client particulier" ||
-    $.cookie("group") == "Salarie"
+    localStorage.getItem("group") == "Client pro" ||
+    localStorage.getItem("group") == "Client particulier" ||
+    localStorage.getItem("group") == "Salarie"
   ) {
     data["agent"] = $.cookie("id_logged_user_user");
   }
@@ -712,12 +712,12 @@ function editRdv() {
   data["info_diverses"] = $("#info_diverses").val();
 
   if (
-    $.cookie("group") == "Client pro" ||
-    $.cookie("group") == "Client particulier"
+    localStorage.getItem("group") == "Client pro" ||
+    localStorage.getItem("group") == "Client particulier"
   ) {
-    data["client"] = $.cookie("id_user_logged");
+    data["client"] = localStorage.getItem("id_user_logged");
   }
-  if ($.cookie("group") == "Salarie") {
+  if (localStorage.getItem("group") == "Salarie") {
     data["passeur"] = $.cookie("id_logged_user_user");
   }
 
