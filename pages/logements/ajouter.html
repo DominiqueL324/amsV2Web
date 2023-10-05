@@ -58,8 +58,8 @@
                                 class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="window.history.go(-1); " title="Page précedente"
-                            role="button" style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
+                        <a class="nav-link" onclick="window.history.go(-1); " title="Page précedente" role="button"
+                            style="cursor: pointer;"><i class="bi bi-arrow-left"></i></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -295,7 +295,7 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Logements</h1>
+                                <h1>Creation de Logement</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -388,7 +388,7 @@
                                                                     voie</label>
                                                                 <select class="form-control" name="extension_de_la_voie"
                                                                     id="extension_de_la_voie" data-parsley-required>
-
+                                                                    <option value="voie">Voie</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -444,13 +444,7 @@
 
                                                     <h4>Information Logement</h4>
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Nº Logement</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="n_logement" id="n_logement" />
-                                                            </div>
-                                                        </div>
+
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Type de
@@ -460,14 +454,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Mise en service
-                                                                    le</label>
-                                                                <input type="date" class="form-control"
-                                                                    name="mise_en_service_le" id="mise_en_service_le" />
-                                                            </div>
-                                                        </div>
+
                                                     </div>
 
                                                     <div class="row">
@@ -534,16 +521,6 @@
                                                                 <label for="exampleInputEmail1">Code Fact</label>
                                                                 <input type="text" class="form-control" name="code_fact"
                                                                     id="code_fact" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Ref lot client</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="ref_lot_client" id="ref_lot_client" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -713,7 +690,7 @@
     <script src="../../assets/dist/js/logement.js" async></script>
 
     <script type="text/javascript">
-       
+
 
         // load extension
         // load extension
@@ -731,7 +708,7 @@
                 });
             },
             error: (response) => {
-                
+
             }
         });
 
@@ -749,7 +726,7 @@
                 });
             },
             error: (response) => {
-               
+
             }
         });
 
@@ -782,9 +759,9 @@
             },
             success: (response) => {
                 compteClientList = response["results"];
-                 
+
                 response["results"].forEach((elt) => {
-                   
+
                     $("#compte_client").append(`
                     <option value="${elt["client"]["id"]}">${elt["first_name"] + " " + elt["last_name"] + "   " + elt["client"]["societe"]}</option>
                 `)
@@ -798,35 +775,35 @@
 
     <script>
         $(document).ready(function () {
-           
+
             var options = {
                 rules: {
-                    'compte_client': { required: [true, message["required"]] },
-                    'numero_de_la_voie': { required: [true, message["required"]] },
+                    'compte_client': { required: [false, message["required"]] },
+                    'numero_de_la_voie': { required: [false, message["required"]] },
                     'extension_de_la_voie': { required: [true, message["required"]] },
-                    'type_de_la_voie': { required: [true, message["required"]] },
-                    'nom_de_la_voie': { required: [true, message["required"]] },
-                    'information_complementaire': { required: [true, message["required"]] },
+                    'type_de_la_voie': { required: [false, message["required"]] },
+                    'nom_de_la_voie': { required: [false, message["required"]] },
+                    'information_complementaire': { required: [false, message["required"]] },
                     'postal_code': { required: [true, message["required"]] },
                     'ville': { required: [true, message["required"]] },
-                    'n_logement': { required: [true, message["required"]] },
+
                     'type_de_logement': { required: [true, message["required"]] },
-                    'mise_en_service_le': { required: [true, message["required"]] },
-                    'batiment': { required: [true, message["required"]] },
-                    'etage': { required: [true, message["required"]] },
-                    'escalier': { required: [true, message["required"]] },
-                    'group': { required: [true, message["required"]] },
-                    'secteur': { required: [true, message["required"]] },
+
+                    'batiment': { required: [false, message["required"]] },
+                    'etage': { required: [false, message["required"]] },
+                    'escalier': { required: [false, message["required"]] },
+                    'group': { required: [false, message["required"]] },
+                    'secteur': { required: [false, message["required"]] },
 
                     'surface': { required: [true, message["required"]] },
                     'code_fact': { required: [true, message["required"]] },
-                    'ref_lot_client': { required: [true, message["required"]] },
-                    'cave': { required: [true, message["required"]] },
-                    'parking': { required: [true, message["required"]] },
-                    'n_porte': { required: [true, message["required"]] },
-                    'code_access': { required: [true, message["required"]] },
-                    'autres': { required: [true, message["required"]] },
-                    'proprietaire': { required: [true, message["required"]] },
+                    
+                    'cave': { required: [false, message["required"]] },
+                    'parking': { required: [false, message["required"]] },
+                    'n_porte': { required: [false, message["required"]] },
+                    'code_access': { required: [false, message["required"]] },
+                    'autres': { required: [false, message["required"]] },
+                    'proprietaire': { required: [false, message["required"]] },
 
                 }
             };
@@ -840,8 +817,8 @@
             $("#go").click(function (e) {
                 e.preventDefault();
                 compteclient = {};
-                let client = compteClientList.filter((ele) => 
-                     ele.client.id === parseInt($('#compte_client').val())
+                let client = compteClientList.filter((ele) =>
+                    ele.client.id === parseInt($('#compte_client').val())
                 );
                 compteclient['_id'] = $('#compte_client').val()
                 compteclient['nom'] = $("#compte_client option:selected").text();

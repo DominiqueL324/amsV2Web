@@ -120,9 +120,7 @@ async function getSingleLogement() {
       $("#ville").val(logement.ville).trigger("change");
       $("#n_logement").val(logement.n_logement).trigger("change");
       $("#type_de_logement").val(logement.type_log["_id"]).trigger("change");
-      $("#mise_en_service_le")
-        .val(logement.mise_en_service_le)
-        .trigger("change");
+      
       $("#batiment").val(logement.batiment).trigger("change");
       $("#etage").val(logement.etage).trigger("change");
       $("#escalier").val(logement.etage).trigger("change");
@@ -130,7 +128,6 @@ async function getSingleLogement() {
       $("#secteur").val(logement.secteur).trigger("change");
       $("#surface").val(logement.surface).trigger("change");
       $("#code_fact").val(logement.code_fact).trigger("change");
-      $("#ref_lot_client").val(logement.ref_lot_client).trigger("change");
       $("#cave").val(logement.cave).trigger("change");
       $("#parking").val(logement.parking).trigger("change");
       $("#n_porte").val(logement.n_porte).trigger("change");
@@ -164,7 +161,7 @@ function addLogement(compteclient) {
     !$("#ville").val() ||
     !$("#n_logement").val() ||
     !$("#type_de_logement").val() ||
-    !$("#mise_en_service_le").val() ||
+   
     !$("#batiment").val() ||
     !$("#etage").val() ||
     !$("#escalier").val() ||
@@ -172,7 +169,6 @@ function addLogement(compteclient) {
     !$("#secteur").val() ||
     !$("#surface").val() ||
     !$("#code_fact").val() ||
-    !$("#ref_lot_client").val() ||
     !$("#cave").val() ||
     !$("#parking").val() ||
     !$("#n_porte").val() ||
@@ -200,7 +196,7 @@ function addLogement(compteclient) {
   data["ville"] = $("#ville").val();
   data["n_logement"] = $("#n_logement").val();
   data["type_log"] = $("#type_de_logement").val();
-  data["mise_en_service_le"] = $("#mise_en_service_le").val();
+  
   data["batiment"] = $("#batiment").val();
   data["etage"] = $("#etage").val();
   data["escalier"] = $("#escalier").val();
@@ -208,7 +204,6 @@ function addLogement(compteclient) {
   data["secteur"] = $("#secteur").val();
   data["surface"] = $("#surface").val();
   data["code_fact"] = $("#code_fact").val();
-  data["ref_lot_client"] = $("#ref_lot_client").val();
   data["cave"] = $("#cave").val();
   data["parking"] = $("#parking").val();
   data["n_porte"] = $("#n_porte").val();
@@ -273,7 +268,7 @@ function editLogement(compteclient) {
     !$("#ville").val() ||
     !$("#n_logement").val() ||
     !$("#type_de_logement").val() ||
-    !$("#mise_en_service_le").val() ||
+   
     !$("#batiment").val() ||
     !$("#etage").val() ||
     !$("#escalier").val() ||
@@ -281,7 +276,6 @@ function editLogement(compteclient) {
     !$("#secteur").val() ||
     !$("#surface").val() ||
     !$("#code_fact").val() ||
-    !$("#ref_lot_client").val() ||
     !$("#cave").val() ||
     !$("#parking").val() ||
     !$("#n_porte").val() ||
@@ -308,7 +302,7 @@ function editLogement(compteclient) {
   data["ville"] = $("#ville").val();
   data["n_logement"] = $("#n_logement").val();
   data["type_log"] = $("#type_de_logement").val();
-  data["mise_en_service_le"] = $("#mise_en_service_le").val();
+ 
   data["batiment"] = $("#batiment").val();
   data["etage"] = $("#etage").val();
   data["escalier"] = $("#escalier").val();
@@ -316,7 +310,6 @@ function editLogement(compteclient) {
   data["secteur"] = $("#secteur").val();
   data["surface"] = $("#surface").val();
   data["code_fact"] = $("#code_fact").val();
-  data["ref_lot_client"] = $("#ref_lot_client").val();
   data["cave"] = $("#cave").val();
   data["parking"] = $("#parking").val();
   data["n_porte"] = $("#n_porte").val();

@@ -389,8 +389,8 @@
                                                                 <label for="exampleInputEmail1">Extension de la
                                                                     voie</label>
                                                                 <select class="form-control" name="extension_de_la_voie"
-                                                                    id="extension_de_la_voie" data-parsley-required>
-                                                                    <option value=""></option>
+                                                                    id="extension_de_la_voie">
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -447,13 +447,7 @@
 
                                                     <h4>Information Logement</h4>
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Nº Logement</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="n_logement" id="n_logement" />
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Type de
@@ -462,14 +456,6 @@
                                                                     id="type_de_logement">
                                                                     <option value=""></option>
                                                                 </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Mise en service
-                                                                    le</label>
-                                                                <input type="date" class="form-control"
-                                                                    name="mise_en_service_le" id="mise_en_service_le" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -537,16 +523,6 @@
                                                                 <label for="exampleInputEmail1">Code Fact</label>
                                                                 <input type="text" class="form-control" name="code_fact"
                                                                     id="code_fact" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Ref lot client</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="ref_lot_client" id="ref_lot_client" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -745,32 +721,32 @@
 
             var options = {
                 rules: {
-                    'compte_client': { required: [true, message["required"]] },
-                    'numero_de_la_voie': { required: [true, message["required"]] }, // non obligatoire
+                    'compte_client': { required: [false, message["required"]] },
+                    'numero_de_la_voie': { required: [false, message["required"]] }, // non obligatoire
                     'extension_de_la_voie': { required: [true, message["required"]] }, // non obligatoire
-                    'type_de_la_voie': { required: [true, message["required"]] },
-                    'nom_de_la_voie': { required: [true, message["required"]] }, // non obligatoire
-                    'information_complementaire': { required: [true, message["required"]] }, // non obligatoire
+                    'type_de_la_voie': { required: [false, message["required"]] },
+                    'nom_de_la_voie': { required: [false, message["required"]] }, // non obligatoire
+                    'information_complementaire': { required: [false, message["required"]] }, // non obligatoire
                     'postal_code': { required: [true, message["required"]] },
                     'ville': { required: [true, message["required"]] },
-                    'n_logement': { required: [true, message["required"]] },
+                    
                     'type_de_logement': { required: [true, message["required"]] },
-                    'mise_en_service_le': { required: [true, message["required"]] }, // non obligatoire
-                    'batiment': { required: [true, message["required"]] }, // non obligatoire
-                    'etage': { required: [true, message["required"]] }, // non obligatoire
-                    'escalier': { required: [true, message["required"]] }, // non obligatoire
-                    'group': { required: [true, message["required"]] },
-                    'secteur': { required: [true, message["required"]] },
+                    // non obligatoire
+                    'batiment': { required: [false, message["required"]] }, // non obligatoire
+                    'etage': { required: [false, message["required"]] }, // non obligatoire
+                    'escalier': { required: [false, message["required"]] }, // non obligatoire
+                    'group': { required: [false, message["required"]] },
+                    'secteur': { required: [false, message["required"]] },
 
                     'surface': { required: [true, message["required"]] }, // non obligatoire
                     'code_fact': { required: [true, message["required"]] },
-                    'ref_lot_client': { required: [true, message["required"]] }, // non obligatoire
-                    'cave': { required: [true, message["required"]] }, // non obligatoire
-                    'parking': { required: [true, message["required"]] }, // non obligatoire
-                    'n_porte': { required: [true, message["required"]] }, // non obligatoire
-                    'code_access': { required: [true, message["required"]] }, // non obligatoire
-                    'autres': { required: [true, message["required"]] }, // non obligatoire
-                    'proprietaire': { required: [true, message["required"]] },
+                    'ref_lot_client': { required: [false, message["required"]] }, // non obligatoire
+                    'cave': { required: [false, message["required"]] }, // non obligatoire
+                    'parking': { required: [false, message["required"]] }, // non obligatoire
+                    'n_porte': { required: [false, message["required"]] }, // non obligatoire
+                    'code_access': { required: [false, message["required"]] }, // non obligatoire
+                    'autres': { required: [false, message["required"]] }, // non obligatoire
+                    'proprietaire': { required: [false, message["required"]] },
                 }
             };
             fetchData(localStorage.getItem("id_type_logement"));

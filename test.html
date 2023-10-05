@@ -27,7 +27,7 @@
             // The callback function is invoked whenever the server emits data
             // to the client. The data is then displayed in the "Received"
             // section of the page.
-            socket.on('d8fdabd0-c672-40f3-98ae-bbe209854a44', function (msg, cb) {//uuid is passed as event,only this is relevant
+            socket.on('notification', function (msg, cb) {//uuid is passed as event,only this is relevant
 
                 console.log(msg);
                 console.log(msg.key);
