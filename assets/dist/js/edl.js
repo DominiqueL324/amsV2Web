@@ -127,13 +127,16 @@ function getEdlConstates() {
         "Content-Type": "",
       },
       success: function (response) {
+        console.log(response);
         $("#waiters").css("display", "none");
         $("#table-content").css("display", "block");
 
         var i = 1;
         console.log();
         response["results"].forEach((elt) => {
-          $("#contentTableUser").append(`
+          
+          if (elt.pdf) {
+            $("#contentTableUser").append(`
           <tr>
           <td>${i}</td>
             <td>${elt["logement"]["client"]["nom"]}</td>
@@ -151,7 +154,8 @@ function getEdlConstates() {
             }><i class="fa fa-download" aria-hidden="true"></i></a></td>
           </tr>
         `);
-          i++;
+            i++;
+          }
         });
       },
       error: function (response) {
