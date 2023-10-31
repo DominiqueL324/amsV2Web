@@ -392,8 +392,9 @@
                                                                 <label for="exampleInputEmail1">Type EDL</label>
                                                                 <select class="form-control" name="type_de_edl"
                                                                     id="type_de_edl" data-parsley-required>
+                                                                    <option value="entrant" selected>Entrant</option>
                                                                     <option value="sortant">Sortant</option>
-                                                                    <option value="entrant">Entrant</option>
+                                                                   
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -667,7 +668,7 @@
                 } else if (e.target.value === "utilisateur") {
                     $("#nom_du_signatatire").html("");
                     loadUser();
-                    
+
                 }
             });
 

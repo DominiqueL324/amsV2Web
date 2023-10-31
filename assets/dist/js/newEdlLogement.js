@@ -69,11 +69,23 @@ function getSingleRdv() {
       response[0].intervention.type === "Constat sortant"
         ? $("#type_de_edl").val("sortant")
         : $("#type_de_edl").val("entrant");
+      $("#type_de_edl").attr("disabled", true);
+      let date_entrant = $("#date_d_entrer");
+      let date_sortant = $("#date_de_sortir");
+
+      if (response[0].intervention.type === "Constat sortant") {
+        date_sortant.attr("disabled", false);
+        date_entrant.attr("disabled", true);
+      } else {
+        date_sortant.attr("disabled", true);
+        date_entrant.attr("disabled", false);
+      }
 
       let date = new Date(response[0].date);
 
       $("#edl_realiser_le").val(date.toISOString().split("T")[0]);
-      $("#heure").val(date.toTimeString().slice(0, 5));
+
+      $("#heure").val(date.toISOString().slice(11, 16));
     },
 
     error: function (response) {
@@ -308,13 +320,13 @@ function addEDLLogement() {
   }
 
   if (!$("#logement_of_edl").val()) {
-     $.toaster({
-       priority: "danger",
-       title: "error",
-       message: "Veuiller ajouter un logement.",
-     });
+    $.toaster({
+      priority: "danger",
+      title: "error",
+      message: "Veuiller ajouter un logement.",
+    });
   }
-  
+
   if (rdv_edl_signataire.size < 2) {
     $.toaster({
       priority: "danger",
@@ -351,7 +363,7 @@ function addEDLLogement() {
     });
     return;
   }
-   $("#go").attr("disabled", true);
+  $("#go").attr("disabled", true);
   data["date_edl"] = $("#edl_realiser_le").val();
   data["heure"] = $("#heure").val();
   data["type_edl"] = $("#type_de_edl").val();
@@ -363,7 +375,7 @@ function addEDLLogement() {
   data["signataires"] = Object.fromEntries(rdv_edl_signataire);
   data["avancement"] = $("#avancement").val();
   data["created_by"] = currentUser;
-   data["id_cmd_id"] = localStorage.getItem("id_cmd_id");
+  data["id_cmd_id"] = localStorage.getItem("id_cmd_id");
 
   $.ajax({
     method: "POST",
@@ -378,7 +390,7 @@ function addEDLLogement() {
     data: JSON.stringify(data),
     success: () => {
       $("#go").html("Enregistrer");
-        $("#go").attr("disabled", false);
+      $("#go").attr("disabled", false);
       $.toaster({
         priority: "success",
         title: "success",
@@ -398,7 +410,7 @@ function addEDLLogement() {
       );
     },
     error: (response) => {
-        $("#go").attr("disabled", false);
+      $("#go").attr("disabled", false);
       $("#go").html("Enregistrer");
     },
   });
