@@ -77,7 +77,7 @@ function getSingleRdv() {
         date_sortant.attr("disabled", false);
         date_entrant.attr("disabled", true);
       } else {
-        date_sortant.attr("disabled", true);
+        date_sortant.attr("disabled", false);
         date_entrant.attr("disabled", false);
       }
 
@@ -306,8 +306,8 @@ function addEDLLogement() {
     !$("#edl_realiser_le").val() ||
     !$("#heure").val() ||
     !$("#type_de_edl").val() ||
-    !$("#date_d_entrer").val() ||
-    !$("#date_de_sortir").val() ||
+    // !$("#date_d_entrer").val() ||
+    // !$("#date_de_sortir").val() ||
     !$("#motif").val()
   ) {
     $.toaster({
