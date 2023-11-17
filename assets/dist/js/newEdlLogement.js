@@ -75,9 +75,9 @@ function getSingleRdv() {
 
       if (response[0].intervention.type === "Constat sortant") {
         date_sortant.attr("disabled", false);
-        date_entrant.attr("disabled", true);
+        date_entrant.attr("disabled", false);
       } else {
-        date_sortant.attr("disabled", false);
+        date_sortant.attr("disabled", true);
         date_entrant.attr("disabled", false);
       }
 
