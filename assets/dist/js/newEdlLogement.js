@@ -6,6 +6,7 @@ var currentUser = {};
 
 const u = new Map();
 
+
 function getSingleRdv() {
   $("#waiters").css("display", "inline");
   $("#form-content").css("display", "none");
@@ -31,6 +32,11 @@ function getSingleRdv() {
           `);
       });
 
+      var logement = data.results.find((elt) => {
+        return elt.ref_lot_client == response[0].ref_lot;
+      });
+      $("#logement_of_edl").val(logement._id);
+      $("#logement_of_edl").prop("disabled", "disabled");
       const bailleur = (utilisateurs["bailleur"] = {
         ...response[0].propriete.bailleur,
         id: response[0].propriete.id,
@@ -38,7 +44,7 @@ function getSingleRdv() {
         role: "bailleur",
       });
 
-      signataire_list.set(`signataire_${signataire_list.size + 1}`, signataire);
+      // signataire_list.set(`signataire_${signataire_list.size + 1}`, signataire);
       u.set(`signataire_${u.size + 1}`, bailleur);
       const locataire = (utilisateurs["locataire"] = {
         ...response[0].propriete.locataire,
@@ -49,13 +55,21 @@ function getSingleRdv() {
 
       u.set(`signataire_${u.size + 1}`, locataire);
 
-      const agentSecteur = (utilisateurs["agent_constat"] = {
+      const agentSecteur = (utilisateurs["agent_secteur"] = {
+        ...response[0].agent.user,
+        table: "CMD",
+        role: "agent secteur",
+      });
+
+      if (agentSecteur)  u.set(`signataire_${u.size + 1}`, agentSecteur);
+
+      const agentConstat = (utilisateurs["agent_constat"] = {
         ...response[0].agent_constat,
         table: "CMD",
         role: "agent constat",
       });
 
-      u.set(`signataire_${u.size + 1}`, agentSecteur);
+      u.set(`signataire_${u.size + 1}`, agentConstat);
 
       // param_utilisateurs = u;
 
@@ -75,27 +89,19 @@ function getSingleRdv() {
       let date_entrant = $("#date_d_entrer");
       let date_sortant = $("#date_de_sortir");
 
-       let date = new Date(response[0]?.date);
-
       if (response[0].intervention.type === "Constat sortant") {
         date_sortant.attr("disabled", false);
         date_entrant.attr("disabled", false);
-        $("#date_de_sortir").val(date.toISOString().split("T")[0]);
       } else {
         date_sortant.attr("disabled", true);
         date_entrant.attr("disabled", false);
-         $("#date_d_entrer").val(date.toISOString().split("T")[0]);
       }
 
-     
+      let date = new Date(response[0].date);
 
-      $("#edl_realiser_le").val(date?.toISOString()?.split("T")[0]);
-
-      $("#date_rdv").val(date?.toISOString()?.split("T")[0]);
+      $("#edl_realiser_le").val(date.toISOString().split("T")[0]);
 
       $("#heure").val(date.toISOString().slice(11, 16));
-
-      $("#heure_rdv").val(date.toISOString().slice(11, 16));
     },
 
     error: function (response) {
@@ -125,10 +131,19 @@ async function showDefaultDropdownList() {
     } else if (value?.groups[0]?.group) {
       role = value.groups[0].group;
     }
+    if (
+      role == "AGENT CONSTAT" ||
+      role == "AGENT SECTEUR" ||
+      role == "AUDIT PLANNEUR"
+    ) {
+      option.value = key;
+      option.textContent = role + "--" + name;
+      $("#nom_du_signatatire").append(option);
+    }
 
-    option.value = key;
-    option.textContent = role + "--" + name;
-    $("#nom_du_signatatire").append(option);
+    //option.value = key;
+    //option.textContent = role + "--" + name;
+    //$("#nom_du_signatatire").append(option);
   });
 }
 
@@ -701,11 +716,13 @@ function renderIntervenantOption() {
   }
 
   signataire_list.forEach((value, key) => {
-    $("#intervenant").append(
-      `<option value="${key}">${
-        value["nom"] || value["last_name"] || value["user"]["nom"]
-      }</option>`
-    );
+    console.log(value);
+    if (value.role == "agent secteur" || value.role == "agent constat") {
+      $("#intervenant").append(
+        `<option value="${key}">${value["nom"] || value["last_name"] || value["user"]["nom"]
+        }</option>`
+      );
+    }
   });
 }
 
