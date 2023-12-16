@@ -20,6 +20,8 @@ function getSingleRdv() {
       $("#waiters").css("display", "none");
       $("#form-content").css("display", "block");
 
+      console.log(response);
+
       compte_client_id = response[0].client.id;
       let data = await getClientLogement();
 
@@ -36,7 +38,7 @@ function getSingleRdv() {
         role: "bailleur",
       });
 
-      // signataire_list.set(`signataire_${signataire_list.size + 1}`, signataire);
+      signataire_list.set(`signataire_${signataire_list.size + 1}`, signataire);
       u.set(`signataire_${u.size + 1}`, bailleur);
       const locataire = (utilisateurs["locataire"] = {
         ...response[0].propriete.locataire,
@@ -73,19 +75,27 @@ function getSingleRdv() {
       let date_entrant = $("#date_d_entrer");
       let date_sortant = $("#date_de_sortir");
 
+       let date = new Date(response[0]?.date);
+
       if (response[0].intervention.type === "Constat sortant") {
         date_sortant.attr("disabled", false);
         date_entrant.attr("disabled", false);
+        $("#date_de_sortir").val(date.toISOString().split("T")[0]);
       } else {
         date_sortant.attr("disabled", true);
         date_entrant.attr("disabled", false);
+         $("#date_d_entrer").val(date.toISOString().split("T")[0]);
       }
 
-      let date = new Date(response[0].date);
+     
 
-      $("#edl_realiser_le").val(date.toISOString().split("T")[0]);
+      $("#edl_realiser_le").val(date?.toISOString()?.split("T")[0]);
+
+      $("#date_rdv").val(date?.toISOString()?.split("T")[0]);
 
       $("#heure").val(date.toISOString().slice(11, 16));
+
+      $("#heure_rdv").val(date.toISOString().slice(11, 16));
     },
 
     error: function (response) {
@@ -305,10 +315,10 @@ function addEDLLogement() {
   if (
     !$("#edl_realiser_le").val() ||
     !$("#heure").val() ||
-    !$("#type_de_edl").val() ||
+    !$("#type_de_edl").val() 
     // !$("#date_d_entrer").val() ||
     // !$("#date_de_sortir").val() ||
-    !$("#motif").val()
+    // !$("#motif").val()
   ) {
     $.toaster({
       priority: "danger",

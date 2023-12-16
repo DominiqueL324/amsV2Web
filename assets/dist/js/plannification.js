@@ -684,7 +684,7 @@ function getRdvC(pris_en_charge = 0) {
         } else if (elt["edl"] !== "1" && !elt["agent_constat"]) {
           couleur = "red";
         } else {
-           couleur = "rgb(255, 166, 93)";
+          couleur = "rgb(255, 166, 93)";
         }
 
         let addEdlOption;
@@ -711,6 +711,12 @@ function getRdvC(pris_en_charge = 0) {
             <td>${elt["client"]["societe"]}</td>
             <td>${elt["ref_lot"] || ""}</td>
             <td>${elt["ref_rdv_edl"] || ""}</td>
+            <td>${elt["propriete"]["bailleur"]["prenom"]} ${
+          elt["propriete"]["bailleur"]["nom"]
+        }</td>
+        <td>${elt["propriete"]["locataire"]["prenom"]} ${
+          elt["propriete"]["locataire"]["nom"]
+        }</td>
             <td class="text-center">
               <span class="badge badge-success">
                 ${elt["intervention"]["type"]} 
@@ -720,6 +726,11 @@ function getRdvC(pris_en_charge = 0) {
               <span class="badge badge-primary">
                 ${elt["propriete"]["type_propriete"]["type"]} 
               </span>
+            </td>
+            <td class="text-center">
+             
+               ${elt["propriete"]["ville"]}
+             
             </td>
             <td>
               ${addEdlOption || ""}

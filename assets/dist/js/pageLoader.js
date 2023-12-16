@@ -6,6 +6,8 @@ const loadPage = () => {
     .split(" ")
     .join("")
     .toLowerCase()}`;
+  
+  console.log(usrTyp);
 
   var stats = JSON.parse(localStorage.getItem("stats"));
 

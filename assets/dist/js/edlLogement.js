@@ -119,10 +119,10 @@ function addEDLLogement() {
   if (
     !$("#edl_realiser_le").val() ||
     !$("#heure").val() ||
-    !$("#type_de_edl").val() ||
-    !$("#date_d_entrer").val() ||
-    !$("#date_de_sortir").val() ||
-    !$("#motif").val()
+    !$("#type_de_edl").val() 
+    // !$("#date_d_entrer").val() ||
+    // !$("#date_de_sortir").val() ||
+    // !$("#motif").val()
   ) {
     $.toaster({
       priority: "danger",
