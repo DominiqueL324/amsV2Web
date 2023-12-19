@@ -647,6 +647,7 @@ $("#goDate").on("click", function () {
 });
 
 function getRdvC(pris_en_charge = 0) {
+
   $("#waiters").css("display", "block");
   $("#table-content").css("display", "none");
 
