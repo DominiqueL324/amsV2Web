@@ -7,7 +7,7 @@ const loadPage = () => {
     .join("")
     .toLowerCase()}`;
   
-  console.log(usrTyp);
+  // console.log(usrTyp);
 
   var stats = JSON.parse(localStorage.getItem("stats"));
 
@@ -93,7 +93,7 @@ $("#logout").on("click", (e) => {
 
 if (window.location.hostname === "127.0.0.1") {
   $("#waiters").load(
-    `${window.location.protocol}//${window.location.host}/partials/spinner.html`
+    `${window.location.protocol}//${window.location.host}/amsv2Web/partials/spinner.html`
   );
 } else {
   $("#waiters").load(

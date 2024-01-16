@@ -9,7 +9,6 @@ const u = new Map();
 function getSingleRdv() {
   $("#waiters").css("display", "inline");
   $("#form-content").css("display", "none");
-
   $.ajax({
     type: "GET",
     url: online_route + "/rdv_app/rdv/" + localStorage.getItem("id_cmd_id"),
@@ -17,13 +16,13 @@ function getSingleRdv() {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
     success: async function (response) {
-      $("#waiters").css("display", "none");
-      $("#form-content").css("display", "block");
-
-      localStorage.removeItem('rdv_edl_list');
+      localStorage.removeItem("rdv_edl_list");
 
       compte_client_id = response[0].client.id;
       let data = await getClientLogement();
+
+      $("#waiters").css("display", "none");
+      $("#form-content").css("display", "block");
 
       data.results.forEach((ele) => {
         $("#logement_of_edl").append(`
@@ -88,7 +87,7 @@ function getSingleRdv() {
 
       let date_entrant = $("#date_d_entrer");
       let date_sortant = $("#date_de_sortir");
-let date = new Date(response[0].date);
+      let date = new Date(response[0].date);
 
       if (response[0].intervention.type === "Constat sortant") {
         date_sortant.attr("disabled", false);
@@ -101,7 +100,6 @@ let date = new Date(response[0].date);
         date_entrant.val(date.toISOString().split("T")[0]);
       }
 
-      
       $("#edl_realiser_le").val(date.toISOString().split("T")[0]);
       $("#date_rdv").val(date.toISOString().split("T")[0]);
 
@@ -581,7 +579,7 @@ function renderRdvList() {
 }
 
 function addRdv() {
-  console.log("hmmm");
+  // console.log("hmmm");
   let rdv_edl_list;
   if (localStorage.getItem("rdv_edl_list")) {
     rdv_edl_list = new Map(JSON.parse(localStorage.getItem("rdv_edl_list")));
@@ -615,7 +613,7 @@ function addRdv() {
     JSON.parse(localStorage.getItem("signataire_list"))
   );
 
-  console.log(signataire_list.get($("#intervenant").val()));
+  // console.log(signataire_list.get($("#intervenant").val()));
 
   rdv_edl["intervenant"] = signataire_list.get($("#intervenant").val());
 
@@ -721,7 +719,7 @@ function renderIntervenantOption() {
   }
 
   signataire_list.forEach((value, key) => {
-    console.log(value);
+    // console.log(value);
     if (value.role == "agent secteur" || value.role == "agent constat") {
       $("#intervenant").append(
         `<option value="${key}">${
