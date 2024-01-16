@@ -40,8 +40,6 @@
     <script src="./assets/dist/js/validationTextMessage.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-    <!-- <script src="https://cdn.syncfusion.com/ej2/21.2.3/dist/ej2.min.js" type="text/javascript"></script> -->
 </head>
 
 <body classname="hold-transition sidebar-mini layout-navbar-fixed" style="height: auto">
@@ -508,9 +506,10 @@
                     $('#chart_div').append("<canvas id='myChart'></canvas>")
                     const ctx = document.getElementById('myChart');
                     var myChart = new Chart(ctx, config);
+                    
                     if (parseInt($("#years").val()) === 0) {
                         response.results.forEach((element) => {
-                            console.log(element);
+                            // console.log(element);
                             let month = parseInt(element['date'].split('-')[1])
                             data[month - 1] = data[month - 1] + 1
                         });

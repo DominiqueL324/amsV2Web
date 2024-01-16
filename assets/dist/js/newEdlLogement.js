@@ -6,7 +6,6 @@ var currentUser = {};
 
 const u = new Map();
 
-
 function getSingleRdv() {
   $("#waiters").css("display", "inline");
   $("#form-content").css("display", "none");
@@ -21,7 +20,7 @@ function getSingleRdv() {
       $("#waiters").css("display", "none");
       $("#form-content").css("display", "block");
 
-      console.log(response);
+      localStorage.removeItem('rdv_edl_list');
 
       compte_client_id = response[0].client.id;
       let data = await getClientLogement();
@@ -61,7 +60,7 @@ function getSingleRdv() {
         role: "agent secteur",
       });
 
-      if (agentSecteur)  u.set(`signataire_${u.size + 1}`, agentSecteur);
+      if (agentSecteur) u.set(`signataire_${u.size + 1}`, agentSecteur);
 
       const agentConstat = (utilisateurs["agent_constat"] = {
         ...response[0].agent_constat,
@@ -86,22 +85,28 @@ function getSingleRdv() {
         ? $("#type_de_edl").val("sortant")
         : $("#type_de_edl").val("entrant");
       $("#type_de_edl").attr("disabled", true);
+
       let date_entrant = $("#date_d_entrer");
       let date_sortant = $("#date_de_sortir");
+let date = new Date(response[0].date);
 
       if (response[0].intervention.type === "Constat sortant") {
         date_sortant.attr("disabled", false);
         date_entrant.attr("disabled", false);
+        date_sortant.val(date.toISOString().split("T")[0]);
       } else {
         date_sortant.attr("disabled", true);
         date_entrant.attr("disabled", false);
+        // date_entrant.val(date.toISOString().split("T")[0]);
+        date_entrant.val(date.toISOString().split("T")[0]);
       }
 
-      let date = new Date(response[0].date);
-
+      
       $("#edl_realiser_le").val(date.toISOString().split("T")[0]);
+      $("#date_rdv").val(date.toISOString().split("T")[0]);
 
       $("#heure").val(date.toISOString().slice(11, 16));
+      $("#heure_rdv").val(date.toISOString().slice(11, 16));
     },
 
     error: function (response) {
@@ -330,7 +335,7 @@ function addEDLLogement() {
   if (
     !$("#edl_realiser_le").val() ||
     !$("#heure").val() ||
-    !$("#type_de_edl").val() 
+    !$("#type_de_edl").val()
     // !$("#date_d_entrer").val() ||
     // !$("#date_de_sortir").val() ||
     // !$("#motif").val()
@@ -719,7 +724,8 @@ function renderIntervenantOption() {
     console.log(value);
     if (value.role == "agent secteur" || value.role == "agent constat") {
       $("#intervenant").append(
-        `<option value="${key}">${value["nom"] || value["last_name"] || value["user"]["nom"]
+        `<option value="${key}">${
+          value["nom"] || value["last_name"] || value["user"]["nom"]
         }</option>`
       );
     }

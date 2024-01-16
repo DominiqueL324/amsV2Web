@@ -84,7 +84,7 @@ function getEvent(debut, fin) {
   if(role=="Administrateur"){
       url_ = "http://195.15.218.172/edlgateway/api/v1/planif/edl/all?start=12&limit=12&count=12";
   }
-  if(role=="Agent secteur"){
+  if(role=="Agent secteur" || role == "Agent constat"){
     // url_ = "http://195.15.218.172/edlgateway/api/v1/planif/edl/part/?ID=" + user_id;
     url_ = "http://195.15.218.172/rdv_app/rdv/?paginated=t";
   }
